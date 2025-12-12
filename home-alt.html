@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FurniCraft | Luxury Collection</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23b08d55%22><path d=%22M4 18v3h3v-3h10v3h3v-6H4zm15-8h3v3h-3zM2 10h3v3H2zm15 3H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8z%22/></svg>">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .hero-alt { 
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 8rem 2rem;
+            margin-top: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+        }
+        .hero-alt h1 { color: white; font-family: 'Playfair Display', serif; font-size: 4rem; }
+        .hero-alt p { color: #aaaaaa; max-width: 600px; margin: 0 auto 2rem; }
+        .feature-split { display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
+        .feature-img img { width: 100%; height: 100%; object-fit: cover; }
+        .feature-text { padding: 4rem; background: #f4f4f4; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24"><path d="M4 18v3h3v-3h10v3h3v-6H4zm15-8h3v3h-3zM2 10h3v3H2zm15 3H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8z"/></svg>
+                <div class="logo-text-wrapper">
+                    FurniCraft
+                    <span>Interiors</span>
+                </div>
+            </a>
+            
+            <nav class="nav-menu">
+                <div class="dropdown">
+                    <span class="nav-link active">Home</span>
+                    <div class="dropdown-menu">
+                        <a href="index.html" class="dropdown-item">Classic Minimal</a>
+                        <a href="home-alt.html" class="dropdown-item">Luxury Modern</a>
+                    </div>
+                </div>
+                <a href="services.html" class="nav-link">Shop</a>
+                <a href="about.html" class="nav-link">Story</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="login.html" class="nav-link">Login</a>
+            </nav>
+
+            <div class="desktop-actions">
+                <button class="theme-toggle">◑</button>
+                <a href="cart.html" class="icon-btn">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                    <span class="header-cart-count">0</span>
+                </a>
+            </div>
+             <div class="mobile-buttons-group">
+                <button class="theme-toggle">◑</button>
+                <a href="cart.html" class="icon-btn">
+                     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                    <span class="header-cart-count">0</span>
+                </a>
+                <button class="mobile-menu-toggle">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <div class="hero-alt">
+            <h1>Elevate Your Environment</h1>
+            <p>Contemporary designs for the discerning homeowner. Experience the perfect blend of form and function.</p>
+            <a href="services.html" class="btn" style="background: white; color: black; border-color: white;">View Collection</a>
+        </div>
+
+        <!-- Premium Grid -->
+        <section class="section container">
+            <h2 class="text-center" style="margin-bottom: 3rem;">Premium Features</h2>
+            <div class="trending-grid">
+                <div class="text-center">
+                    <img data-id="chair1" src="" style="height: 150px; margin: 0 auto 1.5rem;" alt="Chair">
+                    <h3>Ergonomic</h3>
+                    <p>Designed for comfort</p>
+                </div>
+                <div class="text-center">
+                    <img data-id="table1" src="" style="height: 150px; margin: 0 auto 1.5rem;" alt="Table">
+                    <h3>Sustainable</h3>
+                    <p>Ethically sourced</p>
+                </div>
+                <div class="text-center">
+                    <img data-id="lamp1" src="" style="height: 150px; margin: 0 auto 1.5rem;" alt="Light">
+                    <h3>Ambient</h3>
+                    <p>Perfect lighting</p>
+                </div>
+                <div class="text-center">
+                    <img data-id="sofa1" src="" style="height: 150px; margin: 0 auto 1.5rem;" alt="Comfort">
+                    <h3>Handcrafted</h3>
+                    <p>Artisan finish</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Split -->
+        <div class="feature-split">
+            <div class="feature-text">
+                <h2>The Minimalist Edit</h2>
+                <p>Strip away the unnecessary. Our latest collection focuses on clean lines, neutral palettes, and functional beauty.</p>
+                <a href="services.html" class="btn-outline" style="align-self: flex-start; margin-top: 1rem;">Explore</a>
+            </div>
+            <div class="feature-img bg-alt" style="display:flex; justify-content:center; align-items:center; padding: 4rem;">
+                <img data-id="decor1" src="" alt="Decor" style="max-height: 400px;">
+            </div>
+        </div>
+
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="margin-bottom: 1.5rem;">
+                         <svg class="logo-icon" viewBox="0 0 24 24"><path d="M4 18v3h3v-3h10v3h3v-6H4zm15-8h3v3h-3zM2 10h3v3H2zm15 3H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8z"/></svg>
+                        <div class="logo-text-wrapper">
+                            FurniCraft
+                            <span>Interiors</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="services.html">Living</a></li>
+                        <li><a href="services.html">Dining</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">Story</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                 <div class="footer-col">
+                    <h4>Social</h4>
+                    <ul>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Pinterest</a></li>
+                    </ul>
+                </div>
+            </div>
+             <div class="footer-bottom">
+                <p>&copy; 2025 FurniCraft. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

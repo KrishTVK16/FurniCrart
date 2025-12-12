@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Shopping Cart | FurniCraft</title>
+    <meta name="description" content="Review your cart and proceed to checkout.">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23b08d55%22><path d=%22M4 18v3h3v-3h10v3h3v-6H4zm15-8h3v3h-3zM2 10h3v3H2zm15 3H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8z%22/></svg>">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <!-- Header -->
+    <header class="glass-header" role="banner">
+        <nav class="container header-inner" role="navigation" aria-label="Main navigation">
+            <a href="index.html" class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                        d="M4 18v3h3v-3h10v3h3v-6H4zm15-8h3v3h-3zM2 10h3v3H2zm15 3H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8z" />
+                </svg>
+                <div class="logo-text">FurniCraft<span>Interiors</span></div>
+            </a>
+
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    <span>Home</span>
+                </a>
+                <a href="services.html" class="nav-link">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                    <span>Shop</span>
+                </a>
+                <a href="about.html" class="nav-link">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Story</span>
+                </a>
+                <a href="contact.html" class="nav-link">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <span>Contact</span>
+                </a>
+            </div>
+
+            <div class="header-actions">
+                <a href="login.html" class="header-auth-btn">Login</a>
+                <a href="register.html" class="header-auth-btn header-auth-btn-outline">Register</a>
+                <button class="icon-btn theme-toggle" aria-label="Toggle dark mode">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+                <a href="cart.html" class="icon-btn active" aria-label="Shopping cart" aria-current="page">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                    <span class="header-cart-count">0</span>
+                </a>
+            </div>
+
+            <div class="mobile-actions">
+                <button class="icon-btn theme-toggle" aria-label="Toggle dark mode">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+                <a href="cart.html" class="icon-btn">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                    <span class="header-cart-count">0</span>
+                </a>
+                <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main" class="pt-20">
+        <section class="cart-section">
+            <div class="container">
+                <h1 class="mb-12">Shopping Cart</h1>
+
+                <div class="cart-grid">
+                    <!-- Cart Items -->
+                    <div class="cart-items" id="cart-items">
+                        <!-- Items will be dynamically inserted here by script.js -->
+                    </div>
+
+                    <!-- Cart Summary -->
+                    <div class="cart-summary neum-card">
+                        <h2 class="mb-6">Order Summary</h2>
+                        <div class="space-y-4 mb-6">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="total-price" class="font-semibold">₹0</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Shipping</span>
+                                <span class="font-semibold">Free</span>
+                            </div>
+                            <div class="summary-row font-bold text-xl">
+                                <span>Total</span>
+                                <span id="final-price">₹0</span>
+                            </div>
+                        </div>
+                        <button class="btn w-full">Proceed to Checkout</button>
+                        <a href="services.html" class="block text-center mt-4 text-sm text-muted">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2025 FurniCraft. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

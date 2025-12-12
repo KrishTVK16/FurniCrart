@@ -1,0 +1,373 @@
+Upgraded, production-ready prompt & implementation checklist for a Rustic Luxe Floating Header furniture e-commerce site
+
+Below I’ve rewritten and expanded your original prompt so it’s precise, actionable, and developer/designer friendly. It includes: clearer acceptance criteria, device breakpoints, accessibility & SEO requirements, performance steps, Tailwind/SCSS/Tokens guidance, Figma deliverables, QA checklist, git/PR instructions, and code snippets you can drop into the repo. Use this exact prompt when handing the project to a front-end developer / UI team or when feeding an AI/codegen tool.
+
+1 — Master prompt (copy-paste ready)
+
+Project goal: Rebuild and fully optimize an existing furniture e-commerce site with the Rustic Luxe — Floating Header (Icon + Text Menu) design. Each page must have a unique, original design (no reuse of previous project designs). Follow modern UI/UX, accessibility and performance best practices. Deliver production-quality, responsive, maintainable code and a Figma UI kit.
+
+Design system / tech stack
+
+Design style: Rustic Luxe + glassmorphism hero elements + neomorphism for product cards. Floating header with icon + text menu format.
+
+CSS: TailwindCSS (utility-first) + SCSS for design tokens & custom shadows; Tailwind JIT.
+
+Build: HTML5, semantic markup, accessible ARIA attributes, no inline styles for layout.
+
+Fonts: Google Fonts only — specify family + font-weights in Tailwind config.
+
+Images: Responsive <picture> with srcset and sizes + object-fit: cover.
+
+Tools: Figma for UI/UX (component library + responsive frames), optional Storybook for components.
+
+Best practices: Lighthouse > 90 (desktop & mobile), WCAG AA accessible, no layout shift (CLS < 0.1).
+
+Global constraints
+
+Do not copy designs from previous projects.
+
+Make each page unique but consistent with the design system.
+
+Keep code modular and documented. Remove unused CSS.
+
+Ensure SEO meta tags, json-ld product schema, and social preview images.
+
+Required pages (unique designs)
+
+Home (hero + collections + featured products + CTA)
+
+Category / Listing
+
+Product detail (gallery, variants, pricing, add to cart)
+
+Cart / Checkout (UI only if back end not in scope)
+
+Profile / Orders
+
+Blog / Articles (for SEO)
+
+Admin / Dashboard (simple, glassmorphism + neomorphic controls)
+
+Login / Register (minimal: logo, form, social login)
+
+404, Terms, Privacy
+
+Header / Floating menu
+
+Floating header: blurred glass panel, subtle shadow, rounded 2xl.
+
+Menu format: Icon + Text menu item. Use accessible button/a with visible focus ring.
+
+Sticky behavior: small height on scroll, collapsible menu on mobile.
+
+Desktop: horizontal icon+text; Tablet/Mobile: hamburger toggles offcanvas accessible nav.
+
+Login/Register pages
+
+No full site menu — show logo, brand name, centered form, social login buttons (Google/Facebook). Provide hidden skip link for screen readers.
+
+Form center aligned vertically and horizontally; include password visibility toggle and client-side validation messages.
+
+Social logins must be UI placeholders if backend not integrated.
+
+Responsiveness & breakpoints
+
+Must support and be tested at these breakpoints (min & max widths):
+
+320px (small phones)
+
+380px (iPhone X)
+
+425px (larger phones)
+
+600px (small tablet)
+
+780px (tablet)
+
+820px (large tablet)
+
+1024px (laptop)
+
+1280px (desktop)
+
+Use relative sizing (rem, %), Tailwind responsive utilities, and CSS Grid/Flexbox.
+
+No horizontal overflow at any breakpoint. All headings, text and CTA buttons centered where specified.
+
+Centering & layout rules
+
+All headings must be center-aligned by default on hero, product cards headline, and CTA sections.
+
+Buttons: center inside sections/cards/containers. Use consistent rhythm (spacing scale).
+
+Images: center, equal height cards, object-fit: cover. Cards must maintain equal height via CSS Grid or min-height with display: grid and align-self.
+
+Footer
+
+Center icons, links and copyright. Use flexible columns that collapse to centered stacked items on small screens. No overflow.
+
+Accessibility (WCAG AA)
+
+Color contrast >= 4.5:1 for body text, 3:1 for large text.
+
+All interactive elements keyboard focusable; visible focus outline.
+
+Provide skip links, ARIA roles and labels for nav, dialogs, menus.
+
+Forms must include labels and error messages connected via aria-describedby.
+
+Performance
+
+Use loading="lazy" for non-critical images; preconnect to Google Fonts and CDN.
+
+Provide responsive images (webp fallback), compress assets, run SVGO on SVGs.
+
+Critical CSS inlined for initial paint; rest deferred via Tailwind utilities.
+
+Use a CDN for static assets and implement cache headers (if server config allowed).
+
+SEO & Metadata
+
+Proper <title>, <meta name="description">, canonical tags, open graph tags.
+
+Add structured data (Product schema) for product pages.
+
+Sitemap.xml and robots.txt (if backend or deployment included).
+
+Testing & QA
+
+Use Lighthouse (desktop & mobile), Axe accessibility scan, and manual test in Chrome/Firefox/Safari at listed breakpoints.
+
+Verify no overlap/overflow on all pages, forms, modals, accordions and sliders.
+
+Deliverables
+
+Production ready code (HTML/CSS/JS) with Tailwind config, SCSS tokens, and /assets organized.
+
+Figma file: full UI kit, components, responsive frames, specs, typography & spacing scale, exportable assets.
+
+README with build instructions, Tailwind custom tokens, breakpoints, and design tokens.
+
+PR checklist and acceptance tests (Lighthouse score screenshots, accessibility scan).
+
+Simple deployment guide (Netlify/Vercel) with environment variable notes.
+
+2 — Developer & QA checklist (step-by-step)
+
+Use this as the actionable checklist for the team — check each item off:
+
+Setup & config
+
+ Tailwind v3+ configured with darkMode: 'class'. Add Google font families in tailwind.config.js.
+
+ SCSS variables file for design tokens (colors, shadows, radii, spacing).
+
+ Purge unused CSS (Tailwind content paths).
+
+Layout & components
+
+ Floating header component (desktop, tablet, mobile) with accessible nav items.
+
+ Hero component (glassmorphism) with tailwind blur + backdrop-filter.
+
+ Product card component (neomorphic soft shadow, equal height) — use CSS Grid to equalize heights.
+
+ Responsive grid layouts for listings (auto-fit/minmax).
+
+ Modal and offcanvas nav accessible with focus trap.
+
+ Footer component responsive and centered.
+
+Responsiveness fixes to apply (code examples below)
+
+ Convert all fixed widths to %, max-width or rem. Replace px where necessary.
+
+ Add media queries for 320, 380, 425, 600, 780, 820, 1024 breakpoints.
+
+ Ensure images max-width:100%; height:auto; object-fit:cover; and <picture>/srcset.
+
+Forms & auth pages
+
+ Centered auth forms; remove main header/nav from these pages.
+
+ Social login buttons (UI only) with accessible labels.
+
+ Error messages and aria-describedby.
+
+Performance & assets
+
+ Replace JPG/PNG with WebP where possible. Provide fallback images.
+
+ Use srcset sizes and loading="lazy" on non-critical images.
+
+ Compress CSS/JS, minify assets, and enable gzip/brotli on server (deployment step).
+
+ Optimize SVGs with SVGO.
+
+Accessibility & SEO
+
+ Add skip link, landmarks, and roles.
+
+ Color contrast & keyboard navigation tests.
+
+ Meta tags, OG tags, structured data for product pages.
+
+QA & acceptance
+
+ No horizontal scrollbar at any breakpoint.
+
+ Headings centered where specified (hero, main CTAs).
+
+ Footer aligned and no overflow.
+
+ Login/Register pages: no menu, only logo & form & social.
+
+ Lighthouse mobile >= 90, accessibility >= 90 (target), CLS < 0.1.
+
+3 — Concrete code snippets (drop-in)
+
+Meta viewport & favicon (add to every HTML):
+
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<link rel="icon" href="/assets/img/favicon.png" type="image/png" />
+
+
+Tailwind config snippet (tailwind.config.js):
+
+module.exports = {
+  content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+        display: ['"Playfair Display"', 'serif']
+      },
+      colors: {
+        rustic: {
+          50: '#f8f5f2',
+          100: '#efe7e0',
+          500: '#8b6b56' // example
+        },
+        neon: {
+          DEFAULT: '#00ffd1'
+        }
+      },
+      boxShadow: {
+        'soft-neum': '8px 8px 20px rgba(0,0,0,0.08), -8px -8px 20px rgba(255,255,255,0.6)'
+      }
+    }
+  }
+}
+
+
+Responsive image markup (product gallery):
+
+<picture>
+  <source type="image/webp" srcset="
+    /assets/products/sofa-400.webp 400w,
+    /assets/products/sofa-800.webp 800w,
+    /assets/products/sofa-1200.webp 1200w" sizes="(max-width: 780px) 100vw, 50vw">
+  <img src="/assets/products/sofa-800.jpg"
+       alt="Rustic Luxe Sofa"
+       class="w-full h-64 object-cover rounded-lg"
+       loading="lazy" />
+</picture>
+
+
+Equal-height card using CSS Grid:
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-fr">
+  <article class="card p-4 flex flex-col">
+    <img class="w-full h-48 object-cover rounded-md" src="..." alt="">
+    <h3 class="mt-4 text-center">Title</h3>
+    <p class="mt-auto text-center">Price & CTA</p>
+  </article>
+  <!-- other cards -->
+</div>
+
+
+Accessibility: skip link + nav role
+
+<a class="sr-only focus:not-sr-only focus:absolute top-4 left-4 z-50 bg-white px-3 py-2 rounded" href="#main">Skip to content</a>
+
+<nav role="navigation" aria-label="Main navigation">
+  <!-- nav items -->
+</nav>
+
+
+Media query guidance for custom CSS (responsive.css):
+
+/* small phones */
+@media (max-width: 380px) { /* 320 & 380 */ }
+
+/* larger phones */
+@media (min-width: 380px) and (max-width: 425px) { }
+
+/* tablets */
+@media (min-width: 600px) and (max-width: 820px) { }
+
+/* laptops */
+@media (min-width: 1024px) { }
+
+4 — Performance & image optimization commands (recommended)
+
+Optimize SVG: svgo src/icons -o dist/icons
+
+Convert images to WebP: cwebp -q 75 input.jpg -o output.webp
+
+Bulk resize: magick mogrify -path out -resize 1200x -format webp *.jpg
+
+5 — Figma deliverables & spec sheet (for designers)
+
+Full Figma file with pages: Design System, Components, Pages (each page variant).
+
+Components: Header, Footer, Product Card, Modal, Buttons, Form Elements, Social Login buttons.
+
+Token page: color palette, shadows, radii, spacing scale, typography scale.
+
+Exportable assets: icons, SVGs, hero backgrounds (blurred PNG/WebP).
+
+Prototype: interactive header behavior (sticky, collapse), product gallery lightbox.
+
+6 — Git/PR & acceptance criteria (for deployment)
+
+PR must include: list of changed pages, screenshots at 320/380/425/780/1024, Lighthouse report, accessibility audit (axe), and CSS size before/after.
+
+PR checklist:
+
+ All pages mobile/desktop screenshots attached
+
+ No horizontal overflow in screenshots
+
+ Favicon present on all pages
+
+ Login/Register header removed
+
+ Lighthouse mobile >= 90
+
+ Accessibility issues resolved (no critical violations)
+
+ Images optimized and responsive markup used
+
+7 — Example acceptance test scenarios (QA)
+
+Open Home page at 380px: no horizontal scroll, hero heading centered, CTA centered, header collapsed.
+
+Product page at 1024px: gallery loads webp, thumbnails equal size, product title centered in hero section.
+
+Login page on 425px: menu not visible, logo + form centered, social buttons visible and keyboard reachable.
+
+Footer on 320px: links stack, centered, icons centered and no overflow.
+
+Run Lighthouse (mobile) and ensure PWA/Performance/Accessibility all meet thresholds.
+
+8 — Optional advanced enhancements (if time/budget allows)
+
+Add component storybook for each UI component.
+
+Implement CSS variables for runtime theme switching (:root + .dark).
+
+Add image CDN + on-the-fly resizing (Cloudinary/Imgix).
+
+Implement server-side rendering for first paint improvements.
