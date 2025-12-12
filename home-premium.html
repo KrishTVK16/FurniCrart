@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>FurniCraft Premium | Luxury Furniture Collection</title>
+    <meta name="description"
+        content="Experience luxury living with FurniCraft's premium furniture collection. Handcrafted elegance for discerning homes.">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23c79f6b%22><path d=%22M4 18v3h3v-3h10v3h3v-6H4zm15-8h3v3h-3zM2 10h3v3H2zm15 3H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8z%22/></svg>">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Premium Page Specific Styles */
+        .premium-hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, rgba(42, 32, 24, 0.95), rgba(26, 20, 16, 0.98)),
+                url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .premium-hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .premium-tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--cream-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .premium-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff8e7, #c79f6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .premium-subtitle {
+            font-size: 1.25rem;
+            color: var(--cream-muted);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.8;
+        }
+
+        .premium-btn {
+            display: inline-block;
+            padding: 1.25rem 3rem;
+            background: transparent;
+            border: 1px solid var(--cream);
+            color: var(--cream);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: all 0.4s ease;
+        }
+
+        .premium-btn:hover {
+            background: var(--cream);
+            color: var(--timber-dark);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--cream-muted);
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(10px);
+            }
+        }
+
+        /* Luxury Collections Grid */
+        .luxury-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            min-height: 80vh;
+        }
+
+        .luxury-item {
+            position: relative;
+            overflow: hidden;
+            min-height: 500px;
+        }
+
+        .luxury-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .luxury-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .luxury-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            color: #1b1919;
+            text-shadow: 0 0 5px #ffd700, 0 0 10px #ffd700, 0 0 20px #ff8c00;
+        }
+
+        .luxury-overlay h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .luxury-overlay p {
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .luxury-link {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Featured Product Showcase */
+        .showcase-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+        }
+
+        .showcase-image {
+            background: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .showcase-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem;
+            background: var(--glass-bg);
+        }
+
+        .showcase-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--cream-muted);
+            margin-bottom: 1rem;
+        }
+
+        .showcase-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .showcase-price {
+            font-size: 2rem;
+            color: var(--cream);
+            margin-bottom: 1.5rem;
+        }
+
+        .showcase-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .showcase-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #1a1410, #0d0a08);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--cream);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--cream-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            padding: 8rem 0;
+            text-align: center;
+            background: var(--glass-bg);
+        }
+
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-style: italic;
+            max-width: 900px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        .quote-author {
+            color: var(--cream-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .luxury-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .showcase-section {
+                grid-template-columns: 1fr;
+            }
+
+            .showcase-image {
+                min-height: 400px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .quote-text {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode">
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <!-- Minimal Header -->
+    <header class="glass-header" role="banner">
+        <nav class="container header-inner" role="navigation" aria-label="Main navigation">
+            <a href="index.html" class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                        d="M4 18v3h3v-3h10v3h3v-6H4zm15-8h3v3h-3zM2 10h3v3H2zm15 3H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8z" />
+                </svg>
+                <div class="logo-text">FurniCraft<span>Premium</span></div>
+            </a>
+
+            <div class="nav-menu">
+                <div class="nav-dropdown">
+                    <span class="nav-link nav-dropdown-trigger">Home</span>
+                    <div class="nav-dropdown-menu">
+                        <a href="index.html" class="nav-dropdown-item">Classic Home</a>
+                        <a href="home-premium.html" class="nav-dropdown-item">Premium Home</a>
+                    </div>
+                </div>
+                <a href="services.html" class="nav-link">Collections</a>
+                <a href="about.html" class="nav-link">Atelier</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <!-- Mobile Auth Buttons -->
+                <div class="mobile-auth-buttons">
+                    <a href="login.html" class="header-auth-btn">Login</a>
+                    <a href="register.html" class="header-auth-btn header-auth-btn-outline">Register</a>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <a href="login.html" class="header-auth-btn">Login</a>
+                <a href="register.html" class="header-auth-btn header-auth-btn-outline">Register</a>
+                <button class="icon-btn theme-toggle" aria-label="Toggle dark mode">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                </button>
+                <a href="cart.html" class="icon-btn" aria-label="Shopping cart">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                    <span class="header-cart-count">0</span>
+                </a>
+            </div>
+
+            <!-- Mobile Actions -->
+            <div class="mobile-actions">
+                <button class="icon-btn theme-toggle" aria-label="Toggle dark mode">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+                <a href="cart.html" class="icon-btn" aria-label="Cart">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                    <span class="header-cart-count">0</span>
+                </a>
+                <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    ☰
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main">
+        <!-- Premium Hero -->
+        <section class="premium-hero">
+            <div class="premium-hero-content">
+                <p class="premium-tagline">Exclusive Collection 2025</p>
+                <h1 class="premium-title">Where Luxury Meets Comfort</h1>
+                <p class="premium-subtitle">Discover handcrafted furniture pieces that transform your space into a
+                    sanctuary of elegance and sophistication.</p>
+                <a href="services.html" class="premium-btn">Explore Collection</a>
+            </div>
+        </section>
+
+        <!-- Luxury Collections -->
+        <section class="luxury-grid">
+            <div class="luxury-item">
+                <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=800&q=80"
+                    alt="Living Room Collection" loading="lazy">
+                <div class="luxury-overlay">
+                    <h3>Living Room</h3>
+                    <p>Sofas, chairs & more</p>
+                    <a href="services.html" class="luxury-link">View Collection →</a>
+                </div>
+            </div>
+            <div class="luxury-item">
+                <img src="https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?w=800&q=80"
+                    alt="Bedroom Collection" loading="lazy">
+                <div class="luxury-overlay">
+                    <h3>Bedroom</h3>
+                    <p>Beds, wardrobes & nightstands</p>
+                    <a href="services.html" class="luxury-link">View Collection →</a>
+                </div>
+            </div>
+            <div class="luxury-item">
+                <img src="https://images.unsplash.com/photo-1617806118233-18e1de247200?w=800&q=80"
+                    alt="Dining Collection" loading="lazy">
+                <div class="luxury-overlay">
+                    <h3>Dining</h3>
+                    <p>Tables, chairs & sideboards</p>
+                    <a href="services.html" class="luxury-link">View Collection →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Product Showcase -->
+        <section class="showcase-section">
+            <div class="showcase-image"></div>
+            <div class="showcase-content">
+                <p class="showcase-label">Featured Product</p>
+                <h2 class="showcase-title">Modern Chesterfield 3-Seater Sofa</h2>
+                <p class="showcase-price">₹45,999 <span
+                        style="text-decoration: line-through; color: var(--cream-muted); font-size: 1.25rem;">₹59,999</span>
+                </p>
+                <ul class="showcase-features">
+                    <li><span>Material</span><span>Premium Velvet Upholstery</span></li>
+                    <li><span>Frame</span><span>Solid Teak Wood</span></li>
+                    <li><span>Dimensions</span><span>H 85cm x W 220cm x D 95cm</span></li>
+                    <li><span>Warranty</span><span>5 Year Structural Warranty</span></li>
+                </ul>
+                <a href="service-detail.html?id=sofa1" class="premium-btn">View Details</a>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div>
+                        <div class="stat-number">15K+</div>
+                        <div class="stat-label">Happy Customers</div>
+                    </div>
+                    <div>
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Premium Products</div>
+                    </div>
+                    <div>
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Cities Served</div>
+                    </div>
+                    <div>
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Years of Excellence</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quote Section -->
+        <section class="quote-section">
+            <div class="container">
+                <blockquote class="quote-text">"Furniture is not just about function. It's about creating an atmosphere,
+                    a feeling of home, a space where memories are made."</blockquote>
+                <p class="quote-author">— Arjun Sharma, Founder of FurniCraft</p>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="section" style="text-align: center; padding: 6rem 0;">
+            <div class="container">
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 1rem;">Experience
+                    Premium Living</h2>
+                <p
+                    style="color: var(--cream-muted); margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; font-size: 1.1rem;">
+                    Visit our showroom or browse our exclusive online collection.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="services.html" class="premium-btn">Shop Now</a>
+                    <a href="contact.html" class="premium-btn"
+                        style="background: var(--cream); color: var(--timber-dark);">Book Consultation</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background: #0d0a08; padding: 4rem 0 2rem;">
+        <div class="container">
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; margin-bottom: 3rem;">
+                <div>
+                    <div class="footer-brand">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M4 18v3h3v-3h10v3h3v-6H4zm15-8h3v3h-3zM2 10h3v3H2zm15 3H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8z" />
+                        </svg>
+                        <div class="footer-brand-text">FurniCraft<span>Premium</span></div>
+                    </div>
+                    <p style="color: var(--cream-muted); margin-top: 1rem;">Crafting luxury for modern living since
+                        2013.</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Collections</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 0.5rem;"><a href="services.html"
+                                style="color: var(--cream-muted);">Living Room</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="services.html"
+                                style="color: var(--cream-muted);">Bedroom</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="services.html"
+                                style="color: var(--cream-muted);">Dining</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="services.html"
+                                style="color: var(--cream-muted);">Lighting</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Company</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 0.5rem;"><a href="about.html" style="color: var(--cream-muted);">Our
+                                Story</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="contact.html"
+                                style="color: var(--cream-muted);">Contact</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--cream-muted);">Careers</a>
+                        </li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--cream-muted);">Press</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Connect</h4>
+                    <p style="color: var(--cream-muted); margin-bottom: 1rem;">Follow us for design inspiration</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <span style="color: var(--cream);">IG</span>
+                        <span style="color: var(--cream);">FB</span>
+                        <span style="color: var(--cream);">TW</span>
+                        <span style="color: var(--cream);">PI</span>
+                    </div>
+                </div>
+            </div>
+            <div style="border-top: 1px solid var(--glass-border); padding-top: 2rem; text-align: center;">
+                <p style="color: var(--cream-muted);">© 2025 FurniCraft Premium. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

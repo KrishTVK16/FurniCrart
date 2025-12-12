@@ -37,34 +37,21 @@
 
             <!-- Desktop Navigation -->
             <div class="nav-menu">
-                <a href="index.html" class="nav-link active" aria-current="page">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                    </svg>
-                    <span>Home</span>
-                </a>
-                <a href="services.html" class="nav-link">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                    </svg>
-                    <span>Shop</span>
-                </a>
-                <a href="about.html" class="nav-link">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>Story</span>
-                </a>
-                <a href="contact.html" class="nav-link">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    <span>Contact</span>
-                </a>
+                <div class="nav-dropdown">
+                    <span class="nav-link nav-dropdown-trigger">Home</span>
+                    <div class="nav-dropdown-menu">
+                        <a href="index.html" class="nav-dropdown-item">Classic Home</a>
+                        <a href="home-premium.html" class="nav-dropdown-item">Premium Home</a>
+                    </div>
+                </div>
+                <a href="services.html" class="nav-link">Collections</a>
+                <a href="about.html" class="nav-link">Atelier</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <!-- Mobile Auth Buttons -->
+                <div class="mobile-auth-buttons">
+                    <a href="login.html" class="header-auth-btn">Login</a>
+                    <a href="register.html" class="header-auth-btn header-auth-btn-outline">Register</a>
+                </div>
             </div>
 
             <!-- Desktop Actions -->
@@ -175,6 +162,12 @@
                         </div>
                         <span class="category-name">Office</span>
                     </a>
+                    <a href="services.html" class="category-item">
+                        <div class="category-icon">
+                            <img src="https://img.icons8.com/color/96/dressing-table.png" alt="" aria-hidden="true">
+                        </div>
+                        <span class="category-name">Dressing</span>
+                    </a>
                 </div>
             </div>
         </section>
@@ -182,8 +175,9 @@
         <!-- Featured Products Section -->
         <section class="products-section">
             <div class="container">
-                <div class="section-header">
-                    <h2>Curated Picks</h2>
+                <div class="section-header"
+                    style="display: flex; justify-content: center; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+                    <h2 style="margin: 0;">Curated Picks</h2>
                     <a href="services.html" class="btn-outline btn-sm">View All</a>
                 </div>
 
@@ -195,7 +189,7 @@
                                 <img data-id="sofa1" src="" class="product-img" alt="Nordic 3-Seater Sofa"
                                     loading="lazy">
                             </div>
-                            <div class="product-info">
+                            <div class="product-info" style="text-align: center;">
                                 <h3 class="product-title">Nordic 3-Seater Sofa</h3>
                                 <p class="product-price">₹45,999</p>
                             </div>
@@ -215,7 +209,7 @@
                                 <img data-id="table1" src="" class="product-img" alt="Oak Wood Dining Table"
                                     loading="lazy">
                             </div>
-                            <div class="product-info">
+                            <div class="product-info" style="text-align: center;">
                                 <h3 class="product-title">Oak Wood Dining Table</h3>
                                 <p class="product-price">₹22,500</p>
                             </div>
@@ -235,7 +229,7 @@
                                 <img data-id="chair1" src="" class="product-img" alt="Eames Lounge Chair"
                                     loading="lazy">
                             </div>
-                            <div class="product-info">
+                            <div class="product-info" style="text-align: center;">
                                 <h3 class="product-title">Eames Lounge Chair</h3>
                                 <p class="product-price">₹12,999</p>
                             </div>
@@ -255,7 +249,7 @@
                                 <img data-id="lamp1" src="" class="product-img" alt="Minimalist Floor Lamp"
                                     loading="lazy">
                             </div>
-                            <div class="product-info">
+                            <div class="product-info" style="text-align: center;">
                                 <h3 class="product-title">Minimalist Floor Lamp</h3>
                                 <p class="product-price">₹4,500</p>
                             </div>
@@ -284,6 +278,87 @@
                     <span>URBAN</span>
                     <span>CRAFT</span>
                     <span>WOODS</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section class="section" style="background: var(--glass-bg);">
+            <div class="container">
+                <h2 class="text-center" style="margin-bottom: 3rem;">Why Choose FurniCraft?</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                    <div style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🚚</div>
+                        <h3 style="margin-bottom: 0.5rem;">Free Delivery</h3>
+                        <p style="color: var(--cream-muted);">Free shipping on orders above ₹10,000 across India</p>
+                    </div>
+                    <div style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🛡️</div>
+                        <h3 style="margin-bottom: 0.5rem;">5 Year Warranty</h3>
+                        <p style="color: var(--cream-muted);">Quality guaranteed with our comprehensive warranty</p>
+                    </div>
+                    <div style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">↩️</div>
+                        <h3 style="margin-bottom: 0.5rem;">Easy Returns</h3>
+                        <p style="color: var(--cream-muted);">30-day hassle-free return policy</p>
+                    </div>
+                    <div style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">💬</div>
+                        <h3 style="margin-bottom: 0.5rem;">24/7 Support</h3>
+                        <p style="color: var(--cream-muted);">Expert help whenever you need it</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonial Section -->
+        <section class="section">
+            <div class="container">
+                <h2 class="text-center" style="margin-bottom: 3rem;">Loved by Thousands</h2>
+                <div class="testimonials-grid">
+                    <div class="neum-card" style="padding: 2rem;">
+                        <div style="display: flex; gap: 0.25rem; margin-bottom: 1rem; color: #fbbf24;">★★★★★</div>
+                        <p style="font-style: italic; margin-bottom: 1.5rem; line-height: 1.7;">"Absolutely stunning
+                            furniture! The quality exceeded my expectations. My living room has never looked better."
+                        </p>
+                        <p style="font-weight: 600;">— Neha Reddy, Hyderabad</p>
+                    </div>
+                    <div class="neum-card" style="padding: 2rem;">
+                        <div style="display: flex; gap: 0.25rem; margin-bottom: 1rem; color: #fbbf24;">★★★★★</div>
+                        <p style="font-style: italic; margin-bottom: 1.5rem; line-height: 1.7;">"Best furniture shopping
+                            experience. The delivery was on time and the assembly team was professional."</p>
+                        <p style="font-weight: 600;">— Raj Malhotra, Mumbai</p>
+                    </div>
+                    <div class="neum-card" style="padding: 2rem;">
+                        <div style="display: flex; gap: 0.25rem; margin-bottom: 1rem; color: #fbbf24;">★★★★★</div>
+                        <p style="font-style: italic; margin-bottom: 1.5rem; line-height: 1.7;">"Premium quality at
+                            reasonable prices. The marble dining table is a showstopper at our dinner parties!"</p>
+                        <p style="font-weight: 600;">— Kavita Shah, Delhi</p>
+                    </div>
+                    <div class="neum-card" style="padding: 2rem;">
+                        <div style="display: flex; gap: 0.25rem; margin-bottom: 1rem; color: #fbbf24;">★★★★★</div>
+                        <p style="font-style: italic; margin-bottom: 1.5rem; line-height: 1.7;">"Outstanding
+                            craftsmanship!
+                            Every piece feels like a work of art. The customer service team was incredibly helpful too."
+                        </p>
+                        <p style="font-weight: 600;">— Priya Patel, Bangalore</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter CTA -->
+        <section class="section" style="text-align: center; padding: 5rem 0;">
+            <div class="container">
+                <h2 style="margin-bottom: 1rem;">Join Our Design Club</h2>
+                <p
+                    style="color: var(--cream-muted); margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto;">
+                    Get exclusive access to new collections, design tips, and special offers.</p>
+                <div
+                    style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; max-width: 500px; margin: 0 auto;">
+                    <input type="email" placeholder="Enter your email"
+                        style="flex: 1; min-width: 200px; padding: 1rem; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.1); color: var(--cream); border-radius: var(--radius-sm);">
+                    <button class="btn" style="white-space: nowrap;">Subscribe</button>
                 </div>
             </div>
         </section>

@@ -302,6 +302,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 "Style": "Modern Minimalist",
                 "Mounting": "Floor Standing or Wall"
             }
+        },
+        "dresser1": {
+            title: "Vanity Dressing Table",
+            price: "₹28,999",
+            originalPrice: "₹38,000",
+            discount: "24% off",
+            rating: "4.8 ★",
+            img: "https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=600&q=80",
+            specs: {
+                "Dimensions": "H 145cm x W 100cm x D 45cm",
+                "Material": "Solid Wood & Veneer",
+                "Mirror": "Oval Framed Mirror",
+                "Storage": "3 Drawers + Compartments",
+                "Finish": "White Gloss",
+                "Warranty": "3 Year Warranty"
+            }
+        },
+        "mirror2": {
+            title: "Hollywood Vanity Mirror",
+            price: "₹15,999",
+            originalPrice: "₹22,000",
+            discount: "27% off",
+            rating: "4.9 ★",
+            img: "https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?w=600&q=80",
+            specs: {
+                "Size": "H 80cm x W 60cm",
+                "Lights": "12 LED Bulbs (Included)",
+                "Frame": "Matte Black Metal",
+                "Features": "Dimmable, Touch Control",
+                "Style": "Hollywood Glam",
+                "Warranty": "2 Year Warranty"
+            }
         }
     };
 
@@ -399,24 +431,68 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileToggle = document.querySelector('.mobile-menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
 
+    // Create overlay element if it doesn't exist
+    let navOverlay = document.querySelector('.nav-overlay');
+    if (!navOverlay && navMenu) {
+        navOverlay = document.createElement('div');
+        navOverlay.className = 'nav-overlay';
+        document.body.appendChild(navOverlay);
+    }
+
+    function openMobileMenu() {
+        navMenu.classList.add('active');
+        if (navOverlay) navOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        mobileToggle.textContent = '✕';
+    }
+
+    function closeMobileMenu() {
+        navMenu.classList.remove('active');
+        if (navOverlay) navOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+        mobileToggle.textContent = '☰';
+    }
+
     if (mobileToggle && navMenu) {
         mobileToggle.addEventListener('click', (e) => {
             e.stopPropagation();
-            navMenu.classList.toggle('active');
-
             if (navMenu.classList.contains('active')) {
-                mobileToggle.textContent = '✕';
+                closeMobileMenu();
             } else {
-                mobileToggle.textContent = '☰';
+                openMobileMenu();
             }
         });
+
+        // Close on overlay click
+        if (navOverlay) {
+            navOverlay.addEventListener('click', closeMobileMenu);
+        }
+
+        // Close on clicking outside
         document.addEventListener('click', (e) => {
             if (navMenu.classList.contains('active') && !navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
-                navMenu.classList.remove('active');
-                mobileToggle.textContent = '☰';
+                closeMobileMenu();
             }
         });
     }
+
+    /* --- Mobile Dropdown Toggle --- */
+    const navDropdowns = document.querySelectorAll('.nav-dropdown');
+    navDropdowns.forEach(dropdown => {
+        const trigger = dropdown.querySelector('.nav-dropdown-trigger');
+        if (trigger) {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                // Close other dropdowns
+                navDropdowns.forEach(d => {
+                    if (d !== dropdown) d.classList.remove('active');
+                });
+                // Toggle this dropdown
+                dropdown.classList.toggle('active');
+            });
+        }
+    });
 
     /* --- Cart Functionality --- */
     let cart = JSON.parse(localStorage.getItem('furniCart')) || [];
@@ -525,4 +601,118 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateCartCount();
     renderCartPage();
+
+    /* --- Back to Top Button --- */
+    // Create button element
+    const backToTop = document.createElement('button');
+    backToTop.className = 'back-to-top';
+    backToTop.setAttribute('aria-label', 'Back to top');
+    backToTop.innerHTML = `
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    `;
+    document.body.appendChild(backToTop);
+
+    // Show/hide on scroll
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    });
+
+    // Scroll to top on click
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    /* --- Product Filters Functionality --- */
+    const filterToggle = document.getElementById('filter-toggle');
+    const filterOverlay = document.getElementById('filter-overlay');
+    const filtersSidebar = document.getElementById('filters-sidebar');
+    const filterClose = document.getElementById('filter-close');
+    const resultsCount = document.getElementById('results-count');
+    const filterCheckboxes = document.querySelectorAll('.filter-option input[type="checkbox"]');
+    const productCards = document.querySelectorAll('.product-card[data-category]');
+
+    // Open filter panel
+    if (filterToggle) {
+        filterToggle.addEventListener('click', () => {
+            filtersSidebar?.classList.add('active');
+            filterOverlay?.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+
+    // Close filter panel
+    function closeFilters() {
+        filtersSidebar?.classList.remove('active');
+        filterOverlay?.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    if (filterClose) {
+        filterClose.addEventListener('click', closeFilters);
+    }
+
+    if (filterOverlay) {
+        filterOverlay.addEventListener('click', closeFilters);
+    }
+
+    // Filter products function
+    function filterProducts() {
+        const selectedCategories = Array.from(filterCheckboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.dataset.category);
+
+        let visibleCount = 0;
+
+        productCards.forEach(card => {
+            const category = card.dataset.category;
+
+            // If no filters selected, show all
+            if (selectedCategories.length === 0) {
+                card.style.display = '';
+                visibleCount++;
+            } else if (selectedCategories.includes(category)) {
+                card.style.display = '';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        // Update results count
+        if (resultsCount) {
+            resultsCount.textContent = visibleCount;
+        }
+    }
+
+    // Add event listeners to filter checkboxes
+    filterCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', filterProducts);
+    });
+
+    // Clear filters button
+    const clearFiltersBtn = document.getElementById('clear-filters');
+    if (clearFiltersBtn) {
+        clearFiltersBtn.addEventListener('click', () => {
+            // Uncheck all checkboxes
+            filterCheckboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            // Re-filter to show all products
+            filterProducts();
+        });
+    }
+
+    // Initialize count on page load
+    if (resultsCount && productCards.length > 0) {
+        resultsCount.textContent = productCards.length;
+    }
 });
