@@ -997,6 +997,7 @@ body.dark-mode .btn-outline:hover {
 
 .hero-content {
     padding: 2rem 0;
+    text-align: center;
 }
 
 .hero-label {
@@ -1021,6 +1022,8 @@ body.dark-mode .btn-outline:hover {
     font-size: 1.125rem;
     color: var(--cream-muted);
     max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 2rem;
 }
 
@@ -1382,7 +1385,7 @@ body.dark-mode .add-to-cart-btn:hover {
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .values-grid {
         grid-template-columns: 1fr;
     }
@@ -1750,6 +1753,37 @@ footer {
     background: var(--cream-muted);
 }
 
+/* Social Icons */
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
+    color: var(--cream);
+    transition: all var(--transition-base);
+}
+
+.social-icon:hover {
+    background: var(--cream);
+    color: var(--timber-dark);
+    transform: translateY(-3px);
+}
+
+.social-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
 .footer-bottom {
     border-top: 1px solid var(--glass-border);
     padding-top: 2rem;
@@ -1988,7 +2022,7 @@ footer {
     }
 
     .values-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
     }
 
     .split-content {
@@ -2043,6 +2077,10 @@ footer {
     .btn {
         padding: 0.875rem 2rem;
         font-size: 0.85rem;
+    }
+
+    .values-grid {
+        grid-template-columns: 1fr;
     }
 
     .newsletter-form {
@@ -2538,5 +2576,10 @@ footer {
     .nav-menu {
         width: 65%;
         max-width: none;
+    }
+
+    /* Testimonials grid responsive */
+    .testimonials-grid {
+        grid-template-columns: 1fr !important;
     }
 }
