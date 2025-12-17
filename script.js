@@ -413,8 +413,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Default to light mode - only apply dark mode if explicitly saved
     if (savedTheme === 'dark') {
         body.classList.add('dark-mode');
+    } else {
+        // Ensure light mode is default - remove dark-mode class if present
+        body.classList.remove('dark-mode');
+        // Clear any old dark theme preference if not explicitly set
+        if (savedTheme === null) {
+            localStorage.setItem('furniTheme', 'light');
+        }
     }
     updateThemeIcons();
 
@@ -462,6 +470,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 openMobileMenu();
             }
         });
+
+        // Close button inside menu
+        const mobileMenuClose = navMenu.querySelector('.mobile-menu-close');
+        if (mobileMenuClose) {
+            mobileMenuClose.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeMobileMenu();
+            });
+        }
 
         // Close on overlay click
         if (navOverlay) {

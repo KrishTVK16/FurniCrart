@@ -1128,11 +1128,22 @@ body.dark-mode .btn-outline:hover {
 
 .section-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
+    align-items: flex-start;
     margin-bottom: 3rem;
     flex-wrap: wrap;
     gap: 1rem;
+    position: relative;
+}
+
+.section-header h2 {
+    text-align: center;
+}
+
+.section-header .btn-outline {
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .products-grid {
@@ -2438,6 +2449,11 @@ footer {
     }
 }
 
+/* Mobile Menu Close Button - Hidden on Desktop */
+.mobile-menu-close {
+    display: none;
+}
+
 @media (max-width: 1024px) {
     body {
         overflow-x: hidden;
@@ -2479,6 +2495,28 @@ footer {
     .nav-menu.active {
         transform: translateX(0);
         visibility: visible;
+    }
+
+    /* Mobile Menu Close Button */
+    .mobile-menu-close {
+        display: block;
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        font-size: 1.75rem;
+        color: var(--cream);
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        line-height: 1;
+        z-index: 1002;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .mobile-menu-close:hover {
+        color: var(--cream-muted);
+        transform: rotate(90deg);
     }
 
     .nav-link {
