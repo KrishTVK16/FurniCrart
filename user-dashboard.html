@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard | FurniCraft</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23b08d55%22><path d=%22M4 18v3h3v-3h10v3h3v-6H4zm15-8h3v3h-3zM2 10h3v3H2zm15 3H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8z%22/></svg>">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .dashboard-header {
+            margin-bottom: 3rem;
+        }
+
+        .dashboard-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--cream);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .dashboard-header p {
+            color: var(--cream-muted);
+            font-size: 1.25rem;
+            line-height: 1.6;
+        }
+
+        .kpi-row {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .kpi-card {
+            flex: 1;
+            min-width: 200px;
+            max-width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 242, 223, 0.2);
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem;
+            border-left: 4px solid var(--cream);
+            overflow: hidden;
+        }
+
+        .kpi-label {
+            font-size: 0.875rem;
+            color: var(--cream-muted);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .kpi-value {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--cream);
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .split-panel {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .panel {
+            flex: 1;
+            min-width: 0;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 242, 223, 0.2);
+            padding: 1.75rem 1.5rem;
+            border-radius: 16px;
+            border-top: 3px solid var(--cream);
+            overflow: hidden;
+        }
+
+        .panel h3 {
+            font-size: 1.125rem;
+            color: var(--cream-muted);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            line-height: 1.4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .order-timeline {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 242, 223, 0.2);
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 242, 223, 0.1);
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .timeline-dot {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--cream);
+            color: var(--timber-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+            margin-right: 2rem;
+            flex-shrink: 0;
+        }
+
+        .timeline-dot.completed {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .timeline-dot.pending {
+            background: #ff9800;
+            color: white;
+        }
+
+        .timeline-dot.upcoming {
+            background: rgba(255, 242, 223, 0.3);
+            color: var(--cream-muted);
+        }
+
+        .timeline-content {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .timeline-content h4 {
+            color: var(--cream);
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.4;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .timeline-content p {
+            color: var(--cream-muted);
+            font-size: 0.9375rem;
+            line-height: 1.5;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            white-space: normal;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 3rem;
+        }
+
+        .data-table {
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .data-table thead {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .data-table th {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--cream);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+            white-space: nowrap;
+        }
+
+        .data-table td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid rgba(255, 242, 223, 0.1);
+            color: var(--cream-muted);
+            font-size: 0.9375rem;
+            line-height: 1.5;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .data-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .status-shipped { background: rgba(33, 150, 243, 0.3); color: #90caf9; }
+        .status-pending { background: rgba(255, 152, 0, 0.3); color: #ffb74d; }
+        .status-delivered { background: rgba(76, 175, 80, 0.3); color: #81c784; }
+        .status-returned { background: rgba(244, 67, 54, 0.3); color: #e57373; }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons .btn {
+            min-width: fit-content;
+            flex-shrink: 0;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            line-height: 1.4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .btn-primary {
+            background: var(--cream);
+            color: var(--timber-dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--cream-muted);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--cream);
+            border: 1px solid rgba(255, 242, 223, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .section-title {
+            color: var(--cream);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.3;
+            white-space: nowrap;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--cream);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .user-info svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .logout-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 242, 223, 0.3);
+            color: var(--cream);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .logout-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 1.5rem 1rem;
+            }
+
+            .dashboard-header {
+                margin-bottom: 2rem;
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.75rem;
+                line-height: 1.2;
+                white-space: normal;
+            }
+
+            .dashboard-header p {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+
+            .kpi-row, .split-panel {
+                flex-direction: column;
+                gap: 1.25rem;
+                margin-bottom: 2rem;
+            }
+
+            .kpi-card {
+                min-width: 100%;
+                padding: 1.5rem 1.25rem;
+            }
+
+            .kpi-value {
+                font-size: 1.75rem;
+            }
+
+            .kpi-label {
+                font-size: 0.8125rem;
+            }
+
+            .panel {
+                padding: 1.5rem 1.25rem;
+            }
+
+            .panel h3 {
+                font-size: 1.125rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .order-timeline {
+                padding: 1.5rem 1.25rem;
+                margin-bottom: 2rem;
+            }
+
+            .timeline-item {
+                margin-bottom: 1.5rem;
+                padding-bottom: 1.5rem;
+                flex-wrap: wrap;
+            }
+
+            .timeline-dot {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                margin-right: 1rem;
+            }
+
+            .timeline-content {
+                flex: 1;
+                min-width: 0;
+            }
+
+            .timeline-content h4 {
+                font-size: 0.9375rem;
+                white-space: normal;
+            }
+
+            .timeline-content p {
+                font-size: 0.875rem;
+            }
+
+            .table-wrapper {
+                margin-bottom: 2rem;
+            }
+
+            .data-table {
+                min-width: 100%;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 0.875rem 0.75rem;
+                font-size: 0.8125rem;
+                max-width: none;
+            }
+
+            .status-badge {
+                font-size: 0.75rem;
+                padding: 0.375rem 0.75rem;
+                display: inline-block;
+                white-space: nowrap;
+            }
+
+            .action-buttons {
+                gap: 0.75rem;
+                margin-top: 1.5rem;
+            }
+
+            .btn {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.875rem;
+                flex: 1;
+                min-width: 120px;
+                text-align: center;
+            }
+
+            .header-actions {
+                gap: 0.5rem;
+                flex-wrap: wrap;
+            }
+
+            .user-info {
+                font-size: 0.8rem;
+                white-space: nowrap;
+            }
+
+            .logout-btn {
+                padding: 0.5rem 0.875rem;
+                font-size: 0.8125rem;
+            }
+
+            .logout-btn span {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-container {
+                padding: 1rem 0.75rem;
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.5rem;
+                white-space: normal;
+            }
+
+            .dashboard-header p {
+                font-size: 0.9375rem;
+            }
+
+            .kpi-value {
+                font-size: 1.75rem;
+            }
+
+            .section-title {
+                font-size: 1.25rem;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.75rem;
+                max-width: none;
+            }
+
+            .btn {
+                padding: 0.625rem 1rem;
+                font-size: 0.8125rem;
+                min-width: 100px;
+            }
+
+            .timeline-dot {
+                width: 36px;
+                height: 36px;
+                font-size: 0.875rem;
+                margin-right: 0.75rem;
+            }
+
+            .timeline-content h4 {
+                font-size: 0.9375rem;
+            }
+
+            .timeline-content p {
+                font-size: 0.8125rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <!-- Floating Glassmorphism Header -->
+    <header class="glass-header" role="banner">
+        <nav class="container header-inner" role="navigation" aria-label="Main navigation">
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                        d="M4 18v3h3v-3h10v3h3v-6H4zm15-8h3v3h-3zM2 10h3v3H2zm15 3H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8z" />
+                </svg>
+                <div class="logo-text">
+                    FurniCraft
+                    <span>Interiors</span>
+                </div>
+            </a>
+
+            <!-- Desktop Actions -->
+            <div class="header-actions">
+                <div class="user-info">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    <span>User</span>
+                </div>
+                <button class="icon-btn theme-toggle" aria-label="Toggle dark mode" title="Toggle Theme">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+                <button class="logout-btn" onclick="window.location.href='index.html'" aria-label="Logout" title="Logout">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    <span>Logout</span>
+                </button>
+            </div>
+
+            <!-- Mobile Actions -->
+            <div class="mobile-actions">
+                <div class="user-info">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    <span>User</span>
+                </div>
+                <button class="icon-btn theme-toggle" aria-label="Toggle dark mode">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+                <button class="logout-btn" onclick="window.location.href='index.html'" aria-label="Logout" title="Logout" style="padding: 0.5rem;">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main" class="pt-20">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h1>User Dashboard</h1>
+                <p>Manage your orders, payments, and account details</p>
+            </div>
+
+            <!-- Account Overview KPI Row -->
+            <div class="kpi-row">
+                <div class="kpi-card">
+                    <div class="kpi-label">Active Orders</div>
+                    <div class="kpi-value">2</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Wishlist Items</div>
+                    <div class="kpi-value">7</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Saved Addresses</div>
+                    <div class="kpi-value">3</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Total Spent</div>
+                    <div class="kpi-value">₹2.5L</div>
+                </div>
+            </div>
+
+            <!-- Order Tracking Timeline -->
+            <h3 class="section-title">Order Tracking</h3>
+            <div class="order-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot completed">✓</div>
+                    <div class="timeline-content">
+                        <h4>Order #F2301 - Sofa Set (3+2)</h4>
+                        <p>Order placed on 15 Sep 2024 | Amount: ₹45,000</p>
+                        <div class="action-buttons" style="margin-top: 1rem;">
+                            <button class="btn btn-primary" style="padding: 0.625rem 1rem; font-size: 0.75rem;" onclick="handleTrackPackage('#F2301')">Track Package</button>
+                            <button class="btn btn-secondary" style="padding: 0.625rem 1rem; font-size: 0.75rem;" onclick="handleViewDetails('#F2301')">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot completed">✓</div>
+                    <div class="timeline-content">
+                        <h4>Order Confirmed</h4>
+                        <p>Your order has been confirmed and is being prepared for shipment</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot completed">✓</div>
+                    <div class="timeline-content">
+                        <h4>Shipped</h4>
+                        <p>Your order has been shipped via BlueDart. Tracking ID: BD123456789</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot pending">→</div>
+                    <div class="timeline-content">
+                        <h4>Out for Delivery</h4>
+                        <p>Expected delivery: 18 Sep 2024 (3 days remaining)</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot upcoming">○</div>
+                    <div class="timeline-content">
+                        <h4>Delivered</h4>
+                        <p>Your order will be delivered soon</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Split Panel: Payments & Support -->
+            <div class="split-panel">
+                <div class="panel">
+                    <h3>Payment Summary</h3>
+                    <div class="kpi-value" style="color: var(--success-color); margin-bottom: 0.75rem; font-size: 2rem;">₹52,000</div>
+                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Total Paid</p>
+                    <div class="kpi-value" style="color: #ff9800; font-size: 1.5rem; margin-bottom: 0.75rem;">₹0</div>
+                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Pending Payments</p>
+                    <div style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 10px; margin-top: 1.5rem;">
+                        <p style="font-size: 0.875rem; color: var(--cream-muted); margin-bottom: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Recent Payments:</p>
+                        <p style="font-size: 0.9375rem; color: var(--cream-muted); margin-bottom: 0.5rem; line-height: 1.6;">• ₹25,000 - Sofa Set (15 Sep)</p>
+                        <p style="font-size: 0.9375rem; color: var(--cream-muted); line-height: 1.6;">• ₹27,000 - Dining Table (10 Sep)</p>
+                    </div>
+                </div>
+                <div class="panel">
+                    <h3>Support Center</h3>
+                    <div class="kpi-value" style="color: #ff9800; margin-bottom: 0.75rem; font-size: 2rem;">1</div>
+                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Open Tickets</p>
+                    <div class="kpi-value" style="color: #64b5f6; font-size: 1.5rem; margin-bottom: 0.75rem;">4</div>
+                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Unread Messages</p>
+                    <div class="action-buttons" style="margin-top: 1.5rem;">
+                        <button class="btn btn-primary" style="padding: 0.625rem 1rem; font-size: 0.75rem;" onclick="handleNewTicket()">New Ticket</button>
+                        <button class="btn btn-secondary" style="padding: 0.625rem 1rem; font-size: 0.75rem;" onclick="handleViewMessages()">View Messages</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders Table -->
+            <h3 class="section-title">Order History</h3>
+            <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Product</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#F2301</td>
+                        <td>Sofa Set (3+2)</td>
+                        <td>15 Sep 2024</td>
+                        <td>₹45,000</td>
+                        <td><span class="status-badge status-shipped">Out for Delivery</span></td>
+                        <td>
+                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Track</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#F2289</td>
+                        <td>Dining Table Set</td>
+                        <td>10 Sep 2024</td>
+                        <td>₹27,000</td>
+                        <td><span class="status-badge status-delivered">Delivered</span></td>
+                        <td>
+                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Review</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#F2256</td>
+                        <td>Bedroom Wardrobe</td>
+                        <td>05 Sep 2024</td>
+                        <td>₹35,000</td>
+                        <td><span class="status-badge status-delivered">Delivered</span></td>
+                        <td>
+                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Reorder</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#F2234</td>
+                        <td>Coffee Table</td>
+                        <td>28 Aug 2024</td>
+                        <td>₹18,500</td>
+                        <td><span class="status-badge status-delivered">Delivered</span></td>
+                        <td>
+                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Review</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#F2201</td>
+                        <td>Bookshelf Unit</td>
+                        <td>20 Aug 2024</td>
+                        <td>₹22,000</td>
+                        <td><span class="status-badge status-delivered">Delivered</span></td>
+                        <td>
+                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Reorder</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+
+            <!-- Additional Information Section -->
+            <div class="split-panel">
+                <div class="panel">
+                    <h3>Recent Activity</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
+                            <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--success-color);"></div>
+                            <div style="flex: 1;">
+                                <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">Order #F2301 Shipped</p>
+                                <p style="color: var(--cream-muted); font-size: 0.8125rem;">2 hours ago</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
+                            <div style="width: 8px; height: 8px; border-radius: 50%; background: #64b5f6;"></div>
+                            <div style="flex: 1;">
+                                <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">Payment Received</p>
+                                <p style="color: var(--cream-muted); font-size: 0.8125rem;">1 day ago</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div style="width: 8px; height: 8px; border-radius: 50%; background: #ff9800;"></div>
+                            <div style="flex: 1;">
+                                <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">Support Ticket Updated</p>
+                                <p style="color: var(--cream-muted); font-size: 0.8125rem;">3 days ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <h3>Loyalty & Rewards</h3>
+                    <div class="kpi-value" style="color: #ffd700; margin-bottom: 0.75rem; font-size: 2rem;">2,450</div>
+                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Loyalty Points</p>
+                    <div style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 10px; margin-top: 1.5rem;">
+                        <p style="font-size: 0.875rem; color: var(--cream-muted); margin-bottom: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Next Reward:</p>
+                        <p style="font-size: 0.9375rem; color: var(--cream); margin-bottom: 0.5rem; line-height: 1.6;">550 points to Gold Tier</p>
+                        <p style="font-size: 0.8125rem; color: var(--cream-muted); line-height: 1.6;">Get 10% off on next purchase</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="handleViewAllOrders()">View All Orders</button>
+                <button class="btn btn-secondary" onclick="handleManageWishlist()">Manage Wishlist</button>
+                <button class="btn btn-secondary" onclick="handleUpdateProfile()">Update Profile</button>
+                <button class="btn btn-secondary" onclick="handleViewRewards()">View Rewards</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // Button click handlers
+        function handleViewAllOrders() {
+            alert('Viewing all orders...');
+            // window.location.href = 'orders.html';
+        }
+
+        function handleManageWishlist() {
+            alert('Opening wishlist...');
+            // window.location.href = 'wishlist.html';
+        }
+
+        function handleUpdateProfile() {
+            alert('Opening profile settings...');
+            // window.location.href = 'profile.html';
+        }
+
+        function handleViewRewards() {
+            alert('Viewing rewards...');
+            // window.location.href = 'rewards.html';
+        }
+
+        function handleTrackPackage(orderId) {
+            alert('Tracking package for order: ' + orderId);
+            // window.location.href = 'track-order.html?id=' + orderId;
+        }
+
+        function handleViewDetails(orderId) {
+            alert('Viewing details for order: ' + orderId);
+            // window.location.href = 'order-details.html?id=' + orderId;
+        }
+
+        function handleReview(orderId) {
+            alert('Opening review for order: ' + orderId);
+            // window.location.href = 'review.html?id=' + orderId;
+        }
+
+        function handleReorder(orderId) {
+            alert('Reordering items from order: ' + orderId);
+            // window.location.href = 'cart.html?reorder=' + orderId;
+        }
+
+        function handleNewTicket() {
+            alert('Opening new support ticket...');
+            // window.location.href = 'support.html';
+        }
+
+        function handleViewMessages() {
+            alert('Opening messages...');
+            // window.location.href = 'messages.html';
+        }
+
+        // Add event listeners to buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            // Table action buttons
+            document.querySelectorAll('.data-table button').forEach(btn => {
+                const row = btn.closest('tr');
+                const orderId = row?.querySelector('td:first-child')?.textContent.trim() || '';
+                
+                if (btn.textContent.includes('Track')) {
+                    btn.onclick = function() { handleTrackPackage(orderId); };
+                } else if (btn.textContent.includes('Review')) {
+                    btn.onclick = function() { handleReview(orderId); };
+                } else if (btn.textContent.includes('Reorder')) {
+                    btn.onclick = function() { handleReorder(orderId); };
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

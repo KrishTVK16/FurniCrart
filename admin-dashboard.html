@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | FurniCraft</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23b08d55%22><path d=%22M4 18v3h3v-3h10v3h3v-6H4zm15-8h3v3h-3zM2 10h3v3H2zm15 3H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8z%22/></svg>">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .dashboard-header {
+            margin-bottom: 3rem;
+        }
+
+        .dashboard-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--cream);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .dashboard-header p {
+            color: var(--cream-muted);
+            font-size: 1.25rem;
+            line-height: 1.6;
+        }
+
+        .kpi-row {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .kpi-card {
+            flex: 1;
+            min-width: 200px;
+            max-width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 242, 223, 0.2);
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem;
+            border-left: 4px solid var(--cream);
+            overflow: hidden;
+        }
+
+        .kpi-card.primary { border-left-color: #7b68ee; }
+        .kpi-card.success { border-left-color: var(--success-color); }
+        .kpi-card.warning { border-left-color: #ff9800; }
+        .kpi-card.danger { border-left-color: var(--error-color); }
+
+        .kpi-label {
+            font-size: 0.875rem;
+            color: var(--cream-muted);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .kpi-value {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--cream);
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .split-panel {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .panel {
+            flex: 1;
+            min-width: 0;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 242, 223, 0.2);
+            padding: 1.75rem 1.5rem;
+            border-radius: 16px;
+            border-top: 3px solid var(--cream);
+            overflow: hidden;
+        }
+
+        .panel h3 {
+            font-size: 1.125rem;
+            color: var(--cream-muted);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            line-height: 1.4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 3rem;
+        }
+
+        .data-table {
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .data-table thead {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .data-table th {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--cream);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+            white-space: nowrap;
+        }
+
+        .data-table td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid rgba(255, 242, 223, 0.1);
+            color: var(--cream-muted);
+            font-size: 0.9375rem;
+            line-height: 1.5;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .data-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .status-shipped { background: rgba(33, 150, 243, 0.3); color: #90caf9; }
+        .status-pending { background: rgba(255, 152, 0, 0.3); color: #ffb74d; }
+        .status-delivered { background: rgba(76, 175, 80, 0.3); color: #81c784; }
+        .status-returned { background: rgba(244, 67, 54, 0.3); color: #e57373; }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons .btn {
+            min-width: fit-content;
+            flex-shrink: 0;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            line-height: 1.4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .btn-primary {
+            background: var(--cream);
+            color: var(--timber-dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--cream-muted);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--cream);
+            border: 1px solid rgba(255, 242, 223, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .section-title {
+            color: var(--cream);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.3;
+            white-space: nowrap;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--cream);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .user-info svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .logout-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 242, 223, 0.3);
+            color: var(--cream);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .logout-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 1.5rem 1rem;
+            }
+
+            .dashboard-header {
+                margin-bottom: 2rem;
+            }
+
+            .dashboard-header h1 {
+                font-size: 2rem;
+                line-height: 1.2;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            .dashboard-header p {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+
+            .kpi-row, .split-panel {
+                flex-direction: column;
+                gap: 1.25rem;
+                margin-bottom: 2rem;
+            }
+
+            .kpi-card {
+                min-width: 100%;
+                padding: 1.5rem 1.25rem;
+            }
+
+            .kpi-value {
+                font-size: 1.75rem;
+            }
+
+            .kpi-label {
+                font-size: 0.8125rem;
+            }
+
+            .panel {
+                padding: 1.5rem 1.25rem;
+            }
+
+            .panel h3 {
+                font-size: 1.125rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .table-wrapper {
+                margin-bottom: 2rem;
+            }
+
+            .data-table {
+                min-width: 100%;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 0.875rem 0.75rem;
+                font-size: 0.8125rem;
+                max-width: none;
+            }
+
+            .status-badge {
+                font-size: 0.75rem;
+                padding: 0.375rem 0.75rem;
+                display: inline-block;
+                white-space: nowrap;
+            }
+
+            .action-buttons {
+                gap: 0.75rem;
+                margin-top: 1.5rem;
+            }
+
+            .btn {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.875rem;
+                flex: 1;
+                min-width: 120px;
+                text-align: center;
+            }
+
+            .header-actions {
+                gap: 0.5rem;
+                flex-wrap: wrap;
+            }
+
+            .user-info {
+                font-size: 0.8rem;
+                white-space: nowrap;
+            }
+
+            .logout-btn {
+                padding: 0.5rem 0.875rem;
+                font-size: 0.8125rem;
+            }
+
+            .logout-btn span {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-container {
+                padding: 1rem 0.75rem;
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.5rem;
+                white-space: normal;
+            }
+
+            .dashboard-header p {
+                font-size: 0.9375rem;
+            }
+
+            .kpi-value {
+                font-size: 1.75rem;
+            }
+
+            .section-title {
+                font-size: 1.25rem;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.75rem;
+                max-width: none;
+            }
+
+            .btn {
+                padding: 0.625rem 1rem;
+                font-size: 0.8125rem;
+                min-width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <!-- Floating Glassmorphism Header -->
+    <header class="glass-header" role="banner">
+        <nav class="container header-inner" role="navigation" aria-label="Main navigation">
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                        d="M4 18v3h3v-3h10v3h3v-6H4zm15-8h3v3h-3zM2 10h3v3H2zm15 3H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8z" />
+                </svg>
+                <div class="logo-text">
+                    FurniCraft
+                    <span>Interiors</span>
+                </div>
+            </a>
+
+            <!-- Desktop Actions -->
+            <div class="header-actions">
+                <div class="user-info">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    <span>Admin</span>
+                </div>
+                <button class="icon-btn theme-toggle" aria-label="Toggle dark mode" title="Toggle Theme">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+                <button class="logout-btn" onclick="window.location.href='index.html'" aria-label="Logout" title="Logout">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    <span>Logout</span>
+                </button>
+            </div>
+
+            <!-- Mobile Actions -->
+            <div class="mobile-actions">
+                <div class="user-info">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    <span>Admin</span>
+                </div>
+                <button class="icon-btn theme-toggle" aria-label="Toggle dark mode">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+                <button class="logout-btn" onclick="window.location.href='index.html'" aria-label="Logout" title="Logout" style="padding: 0.5rem;">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main" class="pt-20">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h1>Admin Dashboard</h1>
+                <p>Manage orders, inventory, revenue, and delivery operations</p>
+            </div>
+
+            <!-- KPI Row -->
+            <div class="kpi-row">
+                <div class="kpi-card primary">
+                    <div class="kpi-label">Orders Today</div>
+                    <div class="kpi-value">84</div>
+                </div>
+                <div class="kpi-card warning">
+                    <div class="kpi-label">Pending Dispatch</div>
+                    <div class="kpi-value">21</div>
+                </div>
+                <div class="kpi-card danger">
+                    <div class="kpi-label">Returns</div>
+                    <div class="kpi-value">6</div>
+                </div>
+                <div class="kpi-card success">
+                    <div class="kpi-label">Monthly Revenue</div>
+                    <div class="kpi-value">₹86L</div>
+                </div>
+            </div>
+
+            <!-- Split Panels -->
+            <div class="split-panel">
+                <div class="panel">
+                    <h3>Inventory Health</h3>
+                    <div class="kpi-value" style="color: #ff9800; margin-bottom: 0.75rem; font-size: 2rem;">32</div>
+                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Low Stock Items</p>
+                    <div class="kpi-value" style="color: var(--error-color); font-size: 2rem; margin-bottom: 0.75rem;">11</div>
+                    <p style="color: var(--cream-muted); font-size: 1rem; line-height: 1.5;">Out of Stock</p>
+                </div>
+                <div class="panel">
+                    <h3>Category Performance</h3>
+                    <div class="kpi-value" style="font-size: 1.75rem; margin-bottom: 0.75rem; line-height: 1.3;">Living Room</div>
+                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Top Category</p>
+                    <div style="color: var(--cream); font-size: 1.5rem; font-weight: 600; margin-bottom: 0.75rem; line-height: 1.3;">₹42L</div>
+                    <p style="color: var(--cream-muted); font-size: 1rem; line-height: 1.5;">Category Revenue</p>
+                </div>
+            </div>
+
+            <!-- Delivery Monitoring Table -->
+            <h3 class="section-title">Delivery Monitoring</h3>
+            <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Product</th>
+                        <th>Status</th>
+                        <th>ETA</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#F2301</td>
+                        <td>Rajesh Kumar</td>
+                        <td>Sofa Set (3+2)</td>
+                        <td><span class="status-badge status-shipped">Shipped</span></td>
+                        <td>3 days</td>
+                        <td>
+                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Track</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#F2302</td>
+                        <td>Priya Sharma</td>
+                        <td>Dining Table Set</td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td>5 days</td>
+                        <td>
+                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Track</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#F2303</td>
+                        <td>Amit Patel</td>
+                        <td>Bedroom Wardrobe</td>
+                        <td><span class="status-badge status-delivered">Delivered</span></td>
+                        <td>Completed</td>
+                        <td>
+                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">View</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#F2304</td>
+                        <td>Sunita Reddy</td>
+                        <td>Office Desk</td>
+                        <td><span class="status-badge status-returned">Returned</span></td>
+                        <td>N/A</td>
+                        <td>
+                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Review</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#F2305</td>
+                        <td>Vikram Singh</td>
+                        <td>Recliner Chair</td>
+                        <td><span class="status-badge status-shipped">Shipped</span></td>
+                        <td>2 days</td>
+                        <td>
+                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Track</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#F2306</td>
+                        <td>Meera Joshi</td>
+                        <td>TV Stand</td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td>4 days</td>
+                        <td>
+                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Track</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#F2307</td>
+                        <td>Rahul Verma</td>
+                        <td>Study Table</td>
+                        <td><span class="status-badge status-delivered">Delivered</span></td>
+                        <td>Completed</td>
+                        <td>
+                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">View</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+
+            <!-- Additional Information Section -->
+            <div class="split-panel">
+                <div class="panel">
+                    <h3>Top Products</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
+                            <div style="flex: 1;">
+                                <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem; font-weight: 600;">Sofa Set (3+2)</p>
+                                <p style="color: var(--cream-muted); font-size: 0.8125rem;">Living Room</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="color: var(--cream); font-size: 0.9375rem; font-weight: 600;">142</p>
+                                <p style="color: var(--cream-muted); font-size: 0.75rem;">Orders</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
+                            <div style="flex: 1;">
+                                <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem; font-weight: 600;">Dining Table Set</p>
+                                <p style="color: var(--cream-muted); font-size: 0.8125rem;">Dining Room</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="color: var(--cream); font-size: 0.9375rem; font-weight: 600;">98</p>
+                                <p style="color: var(--cream-muted); font-size: 0.75rem;">Orders</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div style="flex: 1;">
+                                <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem; font-weight: 600;">Bedroom Wardrobe</p>
+                                <p style="color: var(--cream-muted); font-size: 0.8125rem;">Bedroom</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="color: var(--cream); font-size: 0.9375rem; font-weight: 600;">76</p>
+                                <p style="color: var(--cream-muted); font-size: 0.75rem;">Orders</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <h3>Customer Insights</h3>
+                    <div class="kpi-value" style="color: #64b5f6; margin-bottom: 0.75rem; font-size: 2rem;">1,248</div>
+                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Total Customers</p>
+                    <div style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 10px; margin-top: 1.5rem;">
+                        <p style="font-size: 0.875rem; color: var(--cream-muted); margin-bottom: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">New This Month:</p>
+                        <p style="font-size: 0.9375rem; color: var(--cream); margin-bottom: 0.5rem; line-height: 1.6;">+127 new customers</p>
+                        <p style="font-size: 0.8125rem; color: var(--cream-muted); line-height: 1.6;">11.3% growth rate</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity Section -->
+            <h3 class="section-title">Recent Activity</h3>
+            <div class="panel">
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--success-color);"></div>
+                        <div style="flex: 1;">
+                            <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">New order #F2308 received</p>
+                            <p style="color: var(--cream-muted); font-size: 0.8125rem;">5 minutes ago</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background: #ff9800;"></div>
+                        <div style="flex: 1;">
+                            <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">Low stock alert: Coffee Table</p>
+                            <p style="color: var(--cream-muted); font-size: 0.8125rem;">1 hour ago</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background: #64b5f6;"></div>
+                        <div style="flex: 1;">
+                            <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">Payment received: ₹45,000</p>
+                            <p style="color: var(--cream-muted); font-size: 0.8125rem;">2 hours ago</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--error-color);"></div>
+                        <div style="flex: 1;">
+                            <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">Return request: Order #F2304</p>
+                            <p style="color: var(--cream-muted); font-size: 0.8125rem;">1 day ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="handleExportReport()">Export Report</button>
+                <button class="btn btn-secondary" onclick="handleViewAllOrders()">View All Orders</button>
+                <button class="btn btn-secondary" onclick="handleInventoryManagement()">Inventory Management</button>
+                <button class="btn btn-secondary" onclick="handleAnalytics()">Analytics</button>
+                <button class="btn btn-secondary" onclick="handleCustomerReports()">Customer Reports</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // Button click handlers
+        function handleExportReport() {
+            alert('Exporting report...');
+            // window.location.href = 'export-report.html';
+        }
+
+        function handleViewAllOrders() {
+            alert('Viewing all orders...');
+            // window.location.href = 'all-orders.html';
+        }
+
+        function handleInventoryManagement() {
+            alert('Opening inventory management...');
+            // window.location.href = 'inventory.html';
+        }
+
+        function handleAnalytics() {
+            alert('Opening analytics dashboard...');
+            // window.location.href = 'analytics.html';
+        }
+
+        function handleCustomerReports() {
+            alert('Opening customer reports...');
+            // window.location.href = 'customer-reports.html';
+        }
+
+        function handleTrackOrder(orderId) {
+            alert('Tracking order: ' + orderId);
+            // window.location.href = 'track-order.html?id=' + orderId;
+        }
+
+        function handleViewOrder(orderId) {
+            alert('Viewing order: ' + orderId);
+            // window.location.href = 'order-details.html?id=' + orderId;
+        }
+
+        function handleReviewOrder(orderId) {
+            alert('Reviewing order: ' + orderId);
+            // window.location.href = 'review-order.html?id=' + orderId;
+        }
+
+        // Add event listeners to table buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.data-table button').forEach(btn => {
+                const row = btn.closest('tr');
+                const orderId = row?.querySelector('td:first-child')?.textContent.trim() || '';
+                
+                if (btn.textContent.includes('Track')) {
+                    btn.onclick = function() { handleTrackOrder(orderId); };
+                } else if (btn.textContent.includes('View')) {
+                    btn.onclick = function() { handleViewOrder(orderId); };
+                } else if (btn.textContent.includes('Review')) {
+                    btn.onclick = function() { handleReviewOrder(orderId); };
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
