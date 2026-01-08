@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Selection | FurniCraft</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23b08d55%22><path d=%22M4 18v3h3v-3h10v3h3v-6H4zm15-8h3v3h-3zM2 10h3v3H2zm15 3H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8z%22/></svg>">
     <link rel="stylesheet" href="styles.css">
     <style>
         * {
@@ -118,6 +121,54 @@
             color: var(--cream-muted);
         }
 
+
+
+        .dashboard-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Logo Side */
+        .dashboard-header-row>div:first-child {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Heading Side */
+        .dashboard-header-row>div:last-child {
+            padding-left: 3rem;
+            border-left: 1px solid rgba(255, 242, 223, 0.3);
+            text-align: center;
+        }
+
+        .dashboard-header-row h1 {
+            margin: 0 0 0.5rem 0;
+            padding: 0;
+            border: none;
+            line-height: 1.2;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--cream);
+        }
+
+        .dashboard-header-row p {
+            margin: 0;
+            color: var(--cream-muted);
+            font-size: 1.1rem;
+        }
+
+        .dashboard-header-row .logo {
+            text-decoration: none;
+        }
+
+        .dashboard-header-row .logo-text {
+            text-align: left;
+            align-items: flex-start;
+        }
+
         @media (max-width: 768px) {
             .dashboard-selection h1 {
                 font-size: 2rem;
@@ -130,14 +181,42 @@
             .dashboard-card {
                 padding: 2rem 1.5rem;
             }
+
+            .dashboard-header-row {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            /* Fix: Ensure border is removed on mobile by placing this AFTER the desktop rule */
+            .dashboard-header-row>div:last-child {
+                padding-left: 0;
+                border: none !important;
+                padding-top: 1rem;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="dashboard-selection">
-        <h1>Select Dashboard</h1>
-        <p>Choose your dashboard type to continue</p>
-        
+
+        <div class="dashboard-header-row">
+            <div>
+                <a href="index.html" class="logo">
+                    <svg class="logo-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M4 18v3h3v-3h10v3h3v-6H4zm15-8h3v3h-3zM2 10h3v3H2zm15 3H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8z" />
+                    </svg>
+                    <div class="logo-text">FurniCraft<span>Interiors</span></div>
+                </a>
+            </div>
+            <div>
+                <h1>Select Dashboard</h1>
+                <p>Choose your dashboard type to continue</p>
+            </div>
+        </div>
+
+
         <div class="dashboard-options">
             <a href="user-dashboard.html" class="dashboard-card">
                 <div class="dashboard-card-icon">
@@ -162,8 +241,7 @@
             </a>
         </div>
 
-        <a href="index.html" class="back-link">← Back to Home</a>
     </div>
 </body>
-</html>
 
+</html>

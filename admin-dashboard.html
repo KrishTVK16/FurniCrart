@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,10 +65,21 @@
             overflow: hidden;
         }
 
-        .kpi-card.primary { border-left-color: #7b68ee; }
-        .kpi-card.success { border-left-color: var(--success-color); }
-        .kpi-card.warning { border-left-color: #ff9800; }
-        .kpi-card.danger { border-left-color: var(--error-color); }
+        .kpi-card.primary {
+            border-left-color: #7b68ee;
+        }
+
+        .kpi-card.success {
+            border-left-color: var(--success-color);
+        }
+
+        .kpi-card.warning {
+            border-left-color: #ff9800;
+        }
+
+        .kpi-card.danger {
+            border-left-color: var(--error-color);
+        }
 
         .kpi-label {
             font-size: 0.875rem;
@@ -179,10 +191,25 @@
             letter-spacing: 0.3px;
         }
 
-        .status-shipped { background: rgba(33, 150, 243, 0.3); color: #90caf9; }
-        .status-pending { background: rgba(255, 152, 0, 0.3); color: #ffb74d; }
-        .status-delivered { background: rgba(76, 175, 80, 0.3); color: #81c784; }
-        .status-returned { background: rgba(244, 67, 54, 0.3); color: #e57373; }
+        .status-shipped {
+            background: rgba(33, 150, 243, 0.3);
+            color: #90caf9;
+        }
+
+        .status-pending {
+            background: rgba(255, 152, 0, 0.3);
+            color: #ffb74d;
+        }
+
+        .status-delivered {
+            background: rgba(76, 175, 80, 0.3);
+            color: #81c784;
+        }
+
+        .status-returned {
+            background: rgba(244, 67, 54, 0.3);
+            color: #e57373;
+        }
 
         .action-buttons {
             display: flex;
@@ -300,7 +327,8 @@
                 line-height: 1.5;
             }
 
-            .kpi-row, .split-panel {
+            .kpi-row,
+            .split-panel {
                 flex-direction: column;
                 gap: 1.25rem;
                 margin-bottom: 2rem;
@@ -424,6 +452,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Skip Link for Accessibility -->
     <a href="#main" class="skip-link">Skip to content</a>
@@ -458,7 +487,8 @@
                             d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                     </svg>
                 </button>
-                <button class="logout-btn" onclick="window.location.href='index.html'" aria-label="Logout" title="Logout">
+                <button class="logout-btn" onclick="window.location.href='index.html'" aria-label="Logout"
+                    title="Logout">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -482,7 +512,8 @@
                             d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                     </svg>
                 </button>
-                <button class="logout-btn" onclick="window.location.href='index.html'" aria-label="Logout" title="Logout" style="padding: 0.5rem;">
+                <button class="logout-btn" onclick="window.location.href='index.html'" aria-label="Logout"
+                    title="Logout" style="padding: 0.5rem;">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -525,15 +556,21 @@
                 <div class="panel">
                     <h3>Inventory Health</h3>
                     <div class="kpi-value" style="color: #ff9800; margin-bottom: 0.75rem; font-size: 2rem;">32</div>
-                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Low Stock Items</p>
-                    <div class="kpi-value" style="color: var(--error-color); font-size: 2rem; margin-bottom: 0.75rem;">11</div>
+                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Low
+                        Stock Items</p>
+                    <div class="kpi-value" style="color: var(--error-color); font-size: 2rem; margin-bottom: 0.75rem;">
+                        11</div>
                     <p style="color: var(--cream-muted); font-size: 1rem; line-height: 1.5;">Out of Stock</p>
                 </div>
                 <div class="panel">
                     <h3>Category Performance</h3>
-                    <div class="kpi-value" style="font-size: 1.75rem; margin-bottom: 0.75rem; line-height: 1.3;">Living Room</div>
-                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Top Category</p>
-                    <div style="color: var(--cream); font-size: 1.5rem; font-weight: 600; margin-bottom: 0.75rem; line-height: 1.3;">₹42L</div>
+                    <div class="kpi-value" style="font-size: 1.75rem; margin-bottom: 0.75rem; line-height: 1.3;">Living
+                        Room</div>
+                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Top
+                        Category</p>
+                    <div
+                        style="color: var(--cream); font-size: 1.5rem; font-weight: 600; margin-bottom: 0.75rem; line-height: 1.3;">
+                        ₹42L</div>
                     <p style="color: var(--cream-muted); font-size: 1rem; line-height: 1.5;">Category Revenue</p>
                 </div>
             </div>
@@ -541,90 +578,97 @@
             <!-- Delivery Monitoring Table -->
             <h3 class="section-title">Delivery Monitoring</h3>
             <div class="table-wrapper">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Customer</th>
-                        <th>Product</th>
-                        <th>Status</th>
-                        <th>ETA</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>#F2301</td>
-                        <td>Rajesh Kumar</td>
-                        <td>Sofa Set (3+2)</td>
-                        <td><span class="status-badge status-shipped">Shipped</span></td>
-                        <td>3 days</td>
-                        <td>
-                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Track</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#F2302</td>
-                        <td>Priya Sharma</td>
-                        <td>Dining Table Set</td>
-                        <td><span class="status-badge status-pending">Pending</span></td>
-                        <td>5 days</td>
-                        <td>
-                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Track</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#F2303</td>
-                        <td>Amit Patel</td>
-                        <td>Bedroom Wardrobe</td>
-                        <td><span class="status-badge status-delivered">Delivered</span></td>
-                        <td>Completed</td>
-                        <td>
-                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">View</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#F2304</td>
-                        <td>Sunita Reddy</td>
-                        <td>Office Desk</td>
-                        <td><span class="status-badge status-returned">Returned</span></td>
-                        <td>N/A</td>
-                        <td>
-                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Review</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#F2305</td>
-                        <td>Vikram Singh</td>
-                        <td>Recliner Chair</td>
-                        <td><span class="status-badge status-shipped">Shipped</span></td>
-                        <td>2 days</td>
-                        <td>
-                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Track</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#F2306</td>
-                        <td>Meera Joshi</td>
-                        <td>TV Stand</td>
-                        <td><span class="status-badge status-pending">Pending</span></td>
-                        <td>4 days</td>
-                        <td>
-                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Track</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#F2307</td>
-                        <td>Rahul Verma</td>
-                        <td>Study Table</td>
-                        <td><span class="status-badge status-delivered">Delivered</span></td>
-                        <td>Completed</td>
-                        <td>
-                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">View</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Product</th>
+                            <th>Status</th>
+                            <th>ETA</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#F2301</td>
+                            <td>Rajesh Kumar</td>
+                            <td>Sofa Set (3+2)</td>
+                            <td><span class="status-badge status-shipped">Shipped</span></td>
+                            <td>3 days</td>
+                            <td>
+                                <button class="btn btn-secondary"
+                                    style="padding: 0.5rem 1rem; font-size: 0.75rem;">Track</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#F2302</td>
+                            <td>Priya Sharma</td>
+                            <td>Dining Table Set</td>
+                            <td><span class="status-badge status-pending">Pending</span></td>
+                            <td>5 days</td>
+                            <td>
+                                <button class="btn btn-secondary"
+                                    style="padding: 0.5rem 1rem; font-size: 0.75rem;">Track</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#F2303</td>
+                            <td>Amit Patel</td>
+                            <td>Bedroom Wardrobe</td>
+                            <td><span class="status-badge status-delivered">Delivered</span></td>
+                            <td>Completed</td>
+                            <td>
+                                <button class="btn btn-secondary"
+                                    style="padding: 0.5rem 1rem; font-size: 0.75rem;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#F2304</td>
+                            <td>Sunita Reddy</td>
+                            <td>Office Desk</td>
+                            <td><span class="status-badge status-returned">Returned</span></td>
+                            <td>N/A</td>
+                            <td>
+                                <button class="btn btn-secondary"
+                                    style="padding: 0.5rem 1rem; font-size: 0.75rem;">Review</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#F2305</td>
+                            <td>Vikram Singh</td>
+                            <td>Recliner Chair</td>
+                            <td><span class="status-badge status-shipped">Shipped</span></td>
+                            <td>2 days</td>
+                            <td>
+                                <button class="btn btn-secondary"
+                                    style="padding: 0.5rem 1rem; font-size: 0.75rem;">Track</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#F2306</td>
+                            <td>Meera Joshi</td>
+                            <td>TV Stand</td>
+                            <td><span class="status-badge status-pending">Pending</span></td>
+                            <td>4 days</td>
+                            <td>
+                                <button class="btn btn-secondary"
+                                    style="padding: 0.5rem 1rem; font-size: 0.75rem;">Track</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#F2307</td>
+                            <td>Rahul Verma</td>
+                            <td>Study Table</td>
+                            <td><span class="status-badge status-delivered">Delivered</span></td>
+                            <td>Completed</td>
+                            <td>
+                                <button class="btn btn-secondary"
+                                    style="padding: 0.5rem 1rem; font-size: 0.75rem;">View</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- Additional Information Section -->
@@ -632,9 +676,12 @@
                 <div class="panel">
                     <h3>Top Products</h3>
                     <div style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
                             <div style="flex: 1;">
-                                <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem; font-weight: 600;">Sofa Set (3+2)</p>
+                                <p
+                                    style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem; font-weight: 600;">
+                                    Sofa Set (3+2)</p>
                                 <p style="color: var(--cream-muted); font-size: 0.8125rem;">Living Room</p>
                             </div>
                             <div style="text-align: right;">
@@ -642,9 +689,12 @@
                                 <p style="color: var(--cream-muted); font-size: 0.75rem;">Orders</p>
                             </div>
                         </div>
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
                             <div style="flex: 1;">
-                                <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem; font-weight: 600;">Dining Table Set</p>
+                                <p
+                                    style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem; font-weight: 600;">
+                                    Dining Table Set</p>
                                 <p style="color: var(--cream-muted); font-size: 0.8125rem;">Dining Room</p>
                             </div>
                             <div style="text-align: right;">
@@ -654,7 +704,9 @@
                         </div>
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <div style="flex: 1;">
-                                <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem; font-weight: 600;">Bedroom Wardrobe</p>
+                                <p
+                                    style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem; font-weight: 600;">
+                                    Bedroom Wardrobe</p>
                                 <p style="color: var(--cream-muted); font-size: 0.8125rem;">Bedroom</p>
                             </div>
                             <div style="text-align: right;">
@@ -667,11 +719,17 @@
                 <div class="panel">
                     <h3>Customer Insights</h3>
                     <div class="kpi-value" style="color: #64b5f6; margin-bottom: 0.75rem; font-size: 2rem;">1,248</div>
-                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Total Customers</p>
-                    <div style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 10px; margin-top: 1.5rem;">
-                        <p style="font-size: 0.875rem; color: var(--cream-muted); margin-bottom: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">New This Month:</p>
-                        <p style="font-size: 0.9375rem; color: var(--cream); margin-bottom: 0.5rem; line-height: 1.6;">+127 new customers</p>
-                        <p style="font-size: 0.8125rem; color: var(--cream-muted); line-height: 1.6;">11.3% growth rate</p>
+                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Total
+                        Customers</p>
+                    <div
+                        style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 10px; margin-top: 1.5rem;">
+                        <p
+                            style="font-size: 0.875rem; color: var(--cream-muted); margin-bottom: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                            New This Month:</p>
+                        <p style="font-size: 0.9375rem; color: var(--cream); margin-bottom: 0.5rem; line-height: 1.6;">
+                            +127 new customers</p>
+                        <p style="font-size: 0.8125rem; color: var(--cream-muted); line-height: 1.6;">11.3% growth rate
+                        </p>
                     </div>
                 </div>
             </div>
@@ -680,31 +738,39 @@
             <h3 class="section-title">Recent Activity</h3>
             <div class="panel">
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
-                    <div style="display: flex; align-items: center; gap: 0.75rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
-                        <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--success-color);"></div>
+                    <div
+                        style="display: flex; align-items: center; gap: 0.75rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--success-color);">
+                        </div>
                         <div style="flex: 1;">
-                            <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">New order #F2308 received</p>
+                            <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">New order
+                                #F2308 received</p>
                             <p style="color: var(--cream-muted); font-size: 0.8125rem;">5 minutes ago</p>
                         </div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 0.75rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
+                    <div
+                        style="display: flex; align-items: center; gap: 0.75rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
                         <div style="width: 8px; height: 8px; border-radius: 50%; background: #ff9800;"></div>
                         <div style="flex: 1;">
-                            <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">Low stock alert: Coffee Table</p>
+                            <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">Low stock
+                                alert: Coffee Table</p>
                             <p style="color: var(--cream-muted); font-size: 0.8125rem;">1 hour ago</p>
                         </div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 0.75rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
+                    <div
+                        style="display: flex; align-items: center; gap: 0.75rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
                         <div style="width: 8px; height: 8px; border-radius: 50%; background: #64b5f6;"></div>
                         <div style="flex: 1;">
-                            <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">Payment received: ₹45,000</p>
+                            <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">Payment
+                                received: ₹45,000</p>
                             <p style="color: var(--cream-muted); font-size: 0.8125rem;">2 hours ago</p>
                         </div>
                     </div>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
                         <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--error-color);"></div>
                         <div style="flex: 1;">
-                            <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">Return request: Order #F2304</p>
+                            <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">Return
+                                request: Order #F2304</p>
                             <p style="color: var(--cream-muted); font-size: 0.8125rem;">1 day ago</p>
                         </div>
                     </div>
@@ -765,21 +831,21 @@
         }
 
         // Add event listeners to table buttons
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.data-table button').forEach(btn => {
                 const row = btn.closest('tr');
                 const orderId = row?.querySelector('td:first-child')?.textContent.trim() || '';
-                
+
                 if (btn.textContent.includes('Track')) {
-                    btn.onclick = function() { handleTrackOrder(orderId); };
+                    btn.onclick = function () { handleTrackOrder(orderId); };
                 } else if (btn.textContent.includes('View')) {
-                    btn.onclick = function() { handleViewOrder(orderId); };
+                    btn.onclick = function () { handleViewOrder(orderId); };
                 } else if (btn.textContent.includes('Review')) {
-                    btn.onclick = function() { handleReviewOrder(orderId); };
+                    btn.onclick = function () { handleReviewOrder(orderId); };
                 }
             });
         });
     </script>
 </body>
-</html>
 
+</html>

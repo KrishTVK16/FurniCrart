@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -255,10 +256,25 @@
             letter-spacing: 0.3px;
         }
 
-        .status-shipped { background: rgba(33, 150, 243, 0.3); color: #90caf9; }
-        .status-pending { background: rgba(255, 152, 0, 0.3); color: #ffb74d; }
-        .status-delivered { background: rgba(76, 175, 80, 0.3); color: #81c784; }
-        .status-returned { background: rgba(244, 67, 54, 0.3); color: #e57373; }
+        .status-shipped {
+            background: rgba(33, 150, 243, 0.3);
+            color: #90caf9;
+        }
+
+        .status-pending {
+            background: rgba(255, 152, 0, 0.3);
+            color: #ffb74d;
+        }
+
+        .status-delivered {
+            background: rgba(76, 175, 80, 0.3);
+            color: #81c784;
+        }
+
+        .status-returned {
+            background: rgba(244, 67, 54, 0.3);
+            color: #e57373;
+        }
 
         .action-buttons {
             display: flex;
@@ -375,7 +391,8 @@
                 line-height: 1.5;
             }
 
-            .kpi-row, .split-panel {
+            .kpi-row,
+            .split-panel {
                 flex-direction: column;
                 gap: 1.25rem;
                 margin-bottom: 2rem;
@@ -546,6 +563,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Skip Link for Accessibility -->
     <a href="#main" class="skip-link">Skip to content</a>
@@ -580,7 +598,8 @@
                             d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                     </svg>
                 </button>
-                <button class="logout-btn" onclick="window.location.href='index.html'" aria-label="Logout" title="Logout">
+                <button class="logout-btn" onclick="window.location.href='index.html'" aria-label="Logout"
+                    title="Logout">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -604,7 +623,8 @@
                             d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                     </svg>
                 </button>
-                <button class="logout-btn" onclick="window.location.href='index.html'" aria-label="Logout" title="Logout" style="padding: 0.5rem;">
+                <button class="logout-btn" onclick="window.location.href='index.html'" aria-label="Logout"
+                    title="Logout" style="padding: 0.5rem;">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -651,8 +671,10 @@
                         <h4>Order #F2301 - Sofa Set (3+2)</h4>
                         <p>Order placed on 15 Sep 2024 | Amount: ₹45,000</p>
                         <div class="action-buttons" style="margin-top: 1rem;">
-                            <button class="btn btn-primary" style="padding: 0.625rem 1rem; font-size: 0.75rem;" onclick="handleTrackPackage('#F2301')">Track Package</button>
-                            <button class="btn btn-secondary" style="padding: 0.625rem 1rem; font-size: 0.75rem;" onclick="handleViewDetails('#F2301')">View Details</button>
+                            <button class="btn btn-primary" style="padding: 0.625rem 1rem; font-size: 0.75rem;"
+                                onclick="handleTrackPackage('#F2301')">Track Package</button>
+                            <button class="btn btn-secondary" style="padding: 0.625rem 1rem; font-size: 0.75rem;"
+                                onclick="handleViewDetails('#F2301')">View Details</button>
                         </div>
                     </div>
                 </div>
@@ -690,25 +712,38 @@
             <div class="split-panel">
                 <div class="panel">
                     <h3>Payment Summary</h3>
-                    <div class="kpi-value" style="color: var(--success-color); margin-bottom: 0.75rem; font-size: 2rem;">₹52,000</div>
-                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Total Paid</p>
+                    <div class="kpi-value"
+                        style="color: var(--success-color); margin-bottom: 0.75rem; font-size: 2rem;">₹52,000</div>
+                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Total
+                        Paid</p>
                     <div class="kpi-value" style="color: #ff9800; font-size: 1.5rem; margin-bottom: 0.75rem;">₹0</div>
-                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Pending Payments</p>
-                    <div style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 10px; margin-top: 1.5rem;">
-                        <p style="font-size: 0.875rem; color: var(--cream-muted); margin-bottom: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Recent Payments:</p>
-                        <p style="font-size: 0.9375rem; color: var(--cream-muted); margin-bottom: 0.5rem; line-height: 1.6;">• ₹25,000 - Sofa Set (15 Sep)</p>
-                        <p style="font-size: 0.9375rem; color: var(--cream-muted); line-height: 1.6;">• ₹27,000 - Dining Table (10 Sep)</p>
+                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">
+                        Pending Payments</p>
+                    <div
+                        style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 10px; margin-top: 1.5rem;">
+                        <p
+                            style="font-size: 0.875rem; color: var(--cream-muted); margin-bottom: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                            Recent Payments:</p>
+                        <p
+                            style="font-size: 0.9375rem; color: var(--cream-muted); margin-bottom: 0.5rem; line-height: 1.6;">
+                            • ₹25,000 - Sofa Set (15 Sep)</p>
+                        <p style="font-size: 0.9375rem; color: var(--cream-muted); line-height: 1.6;">• ₹27,000 - Dining
+                            Table (10 Sep)</p>
                     </div>
                 </div>
                 <div class="panel">
                     <h3>Support Center</h3>
                     <div class="kpi-value" style="color: #ff9800; margin-bottom: 0.75rem; font-size: 2rem;">1</div>
-                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Open Tickets</p>
+                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Open
+                        Tickets</p>
                     <div class="kpi-value" style="color: #64b5f6; font-size: 1.5rem; margin-bottom: 0.75rem;">4</div>
-                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Unread Messages</p>
+                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Unread
+                        Messages</p>
                     <div class="action-buttons" style="margin-top: 1.5rem;">
-                        <button class="btn btn-primary" style="padding: 0.625rem 1rem; font-size: 0.75rem;" onclick="handleNewTicket()">New Ticket</button>
-                        <button class="btn btn-secondary" style="padding: 0.625rem 1rem; font-size: 0.75rem;" onclick="handleViewMessages()">View Messages</button>
+                        <button class="btn btn-primary" style="padding: 0.625rem 1rem; font-size: 0.75rem;"
+                            onclick="handleNewTicket()">New Ticket</button>
+                        <button class="btn btn-secondary" style="padding: 0.625rem 1rem; font-size: 0.75rem;"
+                            onclick="handleViewMessages()">View Messages</button>
                     </div>
                 </div>
             </div>
@@ -716,70 +751,75 @@
             <!-- Recent Orders Table -->
             <h3 class="section-title">Order History</h3>
             <div class="table-wrapper">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Product</th>
-                        <th>Date</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>#F2301</td>
-                        <td>Sofa Set (3+2)</td>
-                        <td>15 Sep 2024</td>
-                        <td>₹45,000</td>
-                        <td><span class="status-badge status-shipped">Out for Delivery</span></td>
-                        <td>
-                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Track</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#F2289</td>
-                        <td>Dining Table Set</td>
-                        <td>10 Sep 2024</td>
-                        <td>₹27,000</td>
-                        <td><span class="status-badge status-delivered">Delivered</span></td>
-                        <td>
-                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Review</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#F2256</td>
-                        <td>Bedroom Wardrobe</td>
-                        <td>05 Sep 2024</td>
-                        <td>₹35,000</td>
-                        <td><span class="status-badge status-delivered">Delivered</span></td>
-                        <td>
-                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Reorder</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#F2234</td>
-                        <td>Coffee Table</td>
-                        <td>28 Aug 2024</td>
-                        <td>₹18,500</td>
-                        <td><span class="status-badge status-delivered">Delivered</span></td>
-                        <td>
-                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Review</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#F2201</td>
-                        <td>Bookshelf Unit</td>
-                        <td>20 Aug 2024</td>
-                        <td>₹22,000</td>
-                        <td><span class="status-badge status-delivered">Delivered</span></td>
-                        <td>
-                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Reorder</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Product</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#F2301</td>
+                            <td>Sofa Set (3+2)</td>
+                            <td>15 Sep 2024</td>
+                            <td>₹45,000</td>
+                            <td><span class="status-badge status-shipped">Out for Delivery</span></td>
+                            <td>
+                                <button class="btn btn-secondary"
+                                    style="padding: 0.5rem 1rem; font-size: 0.75rem;">Track</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#F2289</td>
+                            <td>Dining Table Set</td>
+                            <td>10 Sep 2024</td>
+                            <td>₹27,000</td>
+                            <td><span class="status-badge status-delivered">Delivered</span></td>
+                            <td>
+                                <button class="btn btn-secondary"
+                                    style="padding: 0.5rem 1rem; font-size: 0.75rem;">Review</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#F2256</td>
+                            <td>Bedroom Wardrobe</td>
+                            <td>05 Sep 2024</td>
+                            <td>₹35,000</td>
+                            <td><span class="status-badge status-delivered">Delivered</span></td>
+                            <td>
+                                <button class="btn btn-secondary"
+                                    style="padding: 0.5rem 1rem; font-size: 0.75rem;">Reorder</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#F2234</td>
+                            <td>Coffee Table</td>
+                            <td>28 Aug 2024</td>
+                            <td>₹18,500</td>
+                            <td><span class="status-badge status-delivered">Delivered</span></td>
+                            <td>
+                                <button class="btn btn-secondary"
+                                    style="padding: 0.5rem 1rem; font-size: 0.75rem;">Review</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#F2201</td>
+                            <td>Bookshelf Unit</td>
+                            <td>20 Aug 2024</td>
+                            <td>₹22,000</td>
+                            <td><span class="status-badge status-delivered">Delivered</span></td>
+                            <td>
+                                <button class="btn btn-secondary"
+                                    style="padding: 0.5rem 1rem; font-size: 0.75rem;">Reorder</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- Additional Information Section -->
@@ -787,24 +827,30 @@
                 <div class="panel">
                     <h3>Recent Activity</h3>
                     <div style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div style="display: flex; align-items: center; gap: 0.75rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
-                            <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--success-color);"></div>
+                        <div
+                            style="display: flex; align-items: center; gap: 0.75rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
+                            <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--success-color);">
+                            </div>
                             <div style="flex: 1;">
-                                <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">Order #F2301 Shipped</p>
+                                <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">Order
+                                    #F2301 Shipped</p>
                                 <p style="color: var(--cream-muted); font-size: 0.8125rem;">2 hours ago</p>
                             </div>
                         </div>
-                        <div style="display: flex; align-items: center; gap: 0.75rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
+                        <div
+                            style="display: flex; align-items: center; gap: 0.75rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255, 242, 223, 0.1);">
                             <div style="width: 8px; height: 8px; border-radius: 50%; background: #64b5f6;"></div>
                             <div style="flex: 1;">
-                                <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">Payment Received</p>
+                                <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">Payment
+                                    Received</p>
                                 <p style="color: var(--cream-muted); font-size: 0.8125rem;">1 day ago</p>
                             </div>
                         </div>
                         <div style="display: flex; align-items: center; gap: 0.75rem;">
                             <div style="width: 8px; height: 8px; border-radius: 50%; background: #ff9800;"></div>
                             <div style="flex: 1;">
-                                <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">Support Ticket Updated</p>
+                                <p style="color: var(--cream); font-size: 0.9375rem; margin-bottom: 0.25rem;">Support
+                                    Ticket Updated</p>
                                 <p style="color: var(--cream-muted); font-size: 0.8125rem;">3 days ago</p>
                             </div>
                         </div>
@@ -813,11 +859,17 @@
                 <div class="panel">
                     <h3>Loyalty & Rewards</h3>
                     <div class="kpi-value" style="color: #ffd700; margin-bottom: 0.75rem; font-size: 2rem;">2,450</div>
-                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">Loyalty Points</p>
-                    <div style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 10px; margin-top: 1.5rem;">
-                        <p style="font-size: 0.875rem; color: var(--cream-muted); margin-bottom: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Next Reward:</p>
-                        <p style="font-size: 0.9375rem; color: var(--cream); margin-bottom: 0.5rem; line-height: 1.6;">550 points to Gold Tier</p>
-                        <p style="font-size: 0.8125rem; color: var(--cream-muted); line-height: 1.6;">Get 10% off on next purchase</p>
+                    <p style="color: var(--cream-muted); margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;">
+                        Loyalty Points</p>
+                    <div
+                        style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 10px; margin-top: 1.5rem;">
+                        <p
+                            style="font-size: 0.875rem; color: var(--cream-muted); margin-bottom: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                            Next Reward:</p>
+                        <p style="font-size: 0.9375rem; color: var(--cream); margin-bottom: 0.5rem; line-height: 1.6;">
+                            550 points to Gold Tier</p>
+                        <p style="font-size: 0.8125rem; color: var(--cream-muted); line-height: 1.6;">Get 10% off on
+                            next purchase</p>
                     </div>
                 </div>
             </div>
@@ -885,22 +937,22 @@
         }
 
         // Add event listeners to buttons
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Table action buttons
             document.querySelectorAll('.data-table button').forEach(btn => {
                 const row = btn.closest('tr');
                 const orderId = row?.querySelector('td:first-child')?.textContent.trim() || '';
-                
+
                 if (btn.textContent.includes('Track')) {
-                    btn.onclick = function() { handleTrackPackage(orderId); };
+                    btn.onclick = function () { handleTrackPackage(orderId); };
                 } else if (btn.textContent.includes('Review')) {
-                    btn.onclick = function() { handleReview(orderId); };
+                    btn.onclick = function () { handleReview(orderId); };
                 } else if (btn.textContent.includes('Reorder')) {
-                    btn.onclick = function() { handleReorder(orderId); };
+                    btn.onclick = function () { handleReorder(orderId); };
                 }
             });
         });
     </script>
 </body>
-</html>
 
+</html>
