@@ -1327,6 +1327,24 @@ body.dark-mode .btn-outline:hover {
     gap: 2rem;
 }
 
+/* Trending Grid for Home Alt */
+.trending-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.trending-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    margin: 0 auto 1.5rem;
+    display: block;
+}
+
+
 /* Product Card */
 .product-card {
     background: var(--bg-card);
@@ -1361,9 +1379,9 @@ body.dark-mode .product-img-wrap {
 }
 
 .product-img {
-    max-width: 75%;
-    max-height: 75%;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: transform var(--transition-slow);
 }
 
@@ -2113,6 +2131,9 @@ footer {
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */
+.mobile-only-nav-item {
+    display: none !important;
+}
 
 /* Large screens */
 @media (min-width: 1200px) {
@@ -2128,6 +2149,10 @@ footer {
         padding: 14px 25px;
         margin: 15px auto;
         top: 15px;
+    }
+
+    .mobile-only-nav-item {
+        display: flex !important;
     }
 
     .hero-grid {
@@ -2256,8 +2281,25 @@ footer {
     }
 
     .section-header {
-        flex-direction: column;
-        text-align: center;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+    }
+
+    .section-header .btn-outline {
+        position: static;
+        margin-top: 0;
+        padding: 0.5rem 1rem;
+        /* Adjust padding for mobile */
+    }
+
+    .section-header h2 {
+        font-size: 1.5rem;
+        /* Reduce size slightly to fit */
+        margin-bottom: 0;
+        max-width: 60%;
+        /* Ensure space for button */
     }
 
     .btn {
@@ -2270,7 +2312,18 @@ footer {
     }
 
     .newsletter-form {
-        flex-direction: column;
+        flex-direction: row;
+        align-items: stretch;
+    }
+
+    .newsletter-btn {
+        width: 50px;
+        /* Small fixed width as requested (approx) */
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
     }
 
     .cart-item {
@@ -2647,16 +2700,17 @@ footer {
         top: 0;
         right: 0;
         bottom: 0;
-        width: 25%;
-        min-width: 200px;
-        max-width: 280px;
+        width: 100%;
+        /* Full width for better centering on small screens */
+        max-width: 300px;
         background: linear-gradient(160deg,
                 #4a3728 0%,
                 #3d2c1f 25%,
                 #2a1f16 60%,
                 #1a1410 100%);
         flex-direction: column;
-        align-items: flex-end;
+        align-items: stretch;
+        /* Stretch to fill width */
         padding: 5rem 1.5rem 2rem;
         gap: 0;
         border-left: 1px solid rgba(255, 242, 223, 0.2);
@@ -2701,11 +2755,12 @@ footer {
         border-bottom: 1px solid rgba(255, 242, 223, 0.15);
         font-size: 1.1rem;
         color: var(--cream);
-        text-align: right;
+        text-align: center;
+        /* Center text */
         width: auto;
     }
 
-    /* Mobile Dropdown - Hidden by default, shown on click */
+    /* Mobile Dropdown */
     .nav-dropdown-menu {
         position: static;
         max-height: 0;
@@ -2713,9 +2768,10 @@ footer {
         opacity: 0;
         visibility: hidden;
         transform: none;
-        background: linear-gradient(160deg, #3d2c1f 0%, #2a1f16 100%);
+        background: rgba(0, 0, 0, 0.2);
+        /* Slightly darker for contrast */
         border: none;
-        padding-left: 1rem;
+        padding: 0;
         min-width: auto;
         border-radius: 8px;
         transition: max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
@@ -2725,26 +2781,30 @@ footer {
         max-height: 200px;
         opacity: 1;
         visibility: visible;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
+        padding: 0.5rem 0;
+        margin-bottom: 0.5rem;
     }
 
-    /* Match Home dropdown trigger to other nav links */
     .nav-dropdown {
         display: block;
         width: auto;
-        text-align: right;
+        text-align: center;
+        /* Center dropdown trigger */
     }
 
     .nav-dropdown-trigger {
         display: flex;
-        flex-direction: row-reverse;
+        flex-direction: row;
+        /* Standard flow: Text then Arrow */
+        justify-content: flex-start;
+        align-items: center;
         gap: 0.5rem;
         padding: 1rem 0;
         border-bottom: 1px solid rgba(255, 242, 223, 0.15);
         font-size: 1.1rem;
         color: var(--cream);
         cursor: pointer;
+        width: 100%;
     }
 
     .nav-dropdown-trigger::after {
@@ -2757,35 +2817,75 @@ footer {
 
     .nav-dropdown-item {
         color: var(--cream-muted);
-        padding: 0.5rem 0;
-        text-align: right;
+        padding: 0.75rem 0;
+        text-align: center;
+        /* Center items */
         display: block;
+    }
+
+    /* Style Dashboard Link as Button */
+    .mobile-only-nav-item.nav-link {
+        border-bottom: none;
+        background: var(--cream);
+        color: var(--timber-dark);
+        border-radius: var(--radius-sm);
+        margin: 0 0 0.75rem;
+        /* Match gap of auth buttons */
+        padding: 0.8rem 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.85rem;
+        width: 100%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .mobile-only-nav-item.nav-link:hover {
+        background: var(--cream-muted);
+        opacity: 1;
+        transform: translateY(-2px);
     }
 
     /* Mobile Auth Buttons in Nav */
     .mobile-auth-buttons {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
         gap: 0.75rem;
-        margin-top: auto;
-        padding-top: 1.5rem;
-        border-top: 1px solid rgba(255, 242, 223, 0.15);
+        /* Consistent gap */
+        margin-top: 0;
+        /* Remove auto margin to group with dashboard if needed, or keep? User wants same gaps. If I remove auto, they stack. */
+        padding-top: 0;
+        /* Remove extra padding separately */
+        border-top: none;
+        /* Remove separator for cleaner look with Dashboard button */
     }
+
+    /* Add a spacer or margin-top auto to the wrapper if we want the whole button group at bottom */
+    /* But for now, let's let them stack naturally or add specific spacing to the group */
 
     .mobile-auth-buttons .header-auth-btn {
         display: block;
         text-align: center;
-        padding: 0.75rem 1rem;
-        background: var(--cream);
-        color: var(--timber-dark);
+        padding: 0.8rem 1rem;
+        background: rgba(255, 242, 223, 0.1);
+        /* Different style for auth buttons to distinguish */
+        color: var(--cream);
+        border: 1px solid var(--cream);
         border-radius: var(--radius-sm);
+        font-size: 0.85rem;
+        /* Match Dashboard button */
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        width: 100%;
+        /* Ensure full width */
     }
 
     .mobile-auth-buttons .header-auth-btn-outline {
         background: transparent;
         color: var(--cream);
-        border: 1px solid var(--cream);
+        border: 1px solid var(--cream-muted);
     }
 
     .header-actions {
@@ -2946,4 +3046,42 @@ footer {
     height: 100%;
     stroke: currentColor;
     stroke-width: 1.5;
+}
+
+/* ============================================
+   CATEGORIES RESPONSIVE FIX
+   ============================================ */
+@media (max-width: 600px) {
+    .categories {
+        padding: 2rem 0;
+    }
+
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        justify-items: center;
+    }
+
+    .category-item {
+        width: 100%;
+        max-width: 140px;
+        flex: none;
+        gap: 0.5rem;
+    }
+
+    .category-item::before {
+        width: 110px;
+        height: 110px;
+    }
+
+    .category-icon {
+        width: 70px;
+        height: 70px;
+    }
+
+    .category-icon svg {
+        width: 32px;
+        height: 32px;
+    }
 }
